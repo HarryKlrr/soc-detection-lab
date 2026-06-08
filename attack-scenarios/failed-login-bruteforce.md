@@ -2,16 +2,16 @@
 
 ## 1. Scenario Overview
 
-An attacker attempts to gain access to a target system by repeatedly trying different passwords against an account. This technique is classified as a brute force attack. From a SOC perspective, detecting a high volume of failed authentication events within a short time window is a key indicator of this activity.
+A brute force attack was simulated against a local Windows account by generating 20 rapid failed logon attempts using a PowerShell script on the Windows 10 target VM. Wazuh detected all 21 Event ID 4625 entries and grouped them under the `authentication_failed` rule group.
 
 ---
 
 ## 2. Objective
 
-- Simulate repeated failed login attempts against the Windows or Linux target in the local lab
-- Identify the relevant authentication log entries
-- Configure a threshold-based alert in Wazuh and/or Splunk
-- Document the investigation and response
+- Simulate repeated failed login attempts against a Windows target in the local lab
+- Confirm Event ID 4625 is captured and alerted on by Wazuh
+- Investigate the alert and verify no successful logon followed
+- Document the full detection and investigation process
 
 ---
 
@@ -19,65 +19,97 @@ An attacker attempts to gain access to a target system by repeatedly trying diff
 
 | Component | Detail |
 |---|---|
-| Attack machine | Kali Linux — 192.168.56.10 (host-only network) |
-| Target machine | Windows 10 (RDP/SMB) / Ubuntu (SSH) |
-| Detection platform | Wazuh, Splunk |
-| Network | Isolated host-only adapter — no internet routing |
+| Target VM | Windows 10 — 192.168.56.20 |
+| Target account | `labvictim` (local account created for this scenario) |
+| Attack method | PowerShell script — 20 failed logon attempts |
+| Detection platform | Wazuh (agent active, reporting to 192.168.56.101) |
+| Network | Host-only — isolated, no internet routing |
 
 ---
 
 ## 4. Simulated Activity
 
-The following activity was simulated **only within the local lab environment**:
+Created a test account on the Windows 10 VM:
+```powershell
+net user labvictim Password123! /add
+```
 
-- **Windows**: Multiple failed RDP or local login attempts generated manually or via a script against a test account
-- **Linux**: Multiple failed SSH login attempts against the Ubuntu target from the Kali VM
+Ran the following PowerShell script on the Windows 10 VM to generate failed logon attempts:
+```powershell
+$username = "labvictim"
+$password = "wrongpassword"
+$computer = "localhost"
 
-> All attempts were directed only at locally hosted virtual machines. No external systems were targeted.
+1..20 | ForEach-Object {
+    $securePass = ConvertTo-SecureString $password -AsPlainText -Force
+    $cred = New-Object System.Management.Automation.PSCredential($username, $securePass)
+    try {
+        Start-Process cmd -Credential $cred -ArgumentList "/c echo test" -ErrorAction Stop
+    } catch {}
+    Start-Sleep -Milliseconds 500
+}
+Write-Host "Done - 20 failed login attempts generated"
+```
+
+> All activity performed on locally hosted virtual machines on an isolated host-only network. No external systems were targeted.
 
 ---
 
 ## 5. Logs Generated
 
-Expected log sources:
-
-- **Windows**: Event ID 4625 (Failed Logon) — visible in Windows Security Event Log and forwarded to Wazuh/Splunk
-- **Linux**: `/var/log/auth.log` — `Failed password` entries for the SSH service
-
-[Add actual log entries collected from your lab here.]
+| Log Source | Event | Count |
+|---|---|---|
+| Windows Security Log | Event ID 4625 — Failed Logon for `labvictim` | 21 |
+| Wazuh Threat Hunting | `authentication_failed` alert group | 21 |
+| Wazuh dashboard | Authentication failure counter | 21 |
 
 ---
 
 ## 6. Detection Logic
 
-**Wazuh:**
-[Add tested Wazuh rule here — threshold rule for multiple 4625 events or auth.log failures — see `detection-rules/wazuh-rules.md`]
+**Wazuh built-in rules fired automatically — no custom rule required.**
 
-**Splunk SPL:**
-[Add SPL query here — count of 4625 events by source IP within time window — see `detection-rules/splunk-queries.md`]
+- Alert group: `authentication_failed`, `windows_security`
+- Rule description: Logon Failure
+- Event ID matched: 4625
+- Target user: `labvictim`
+
+Verified by filtering Wazuh Threat Hunting with:
+```
+data.win.system.eventID: 4625
+```
 
 ---
 
 ## 7. Investigation Steps
 
-1. Identify the account being targeted and the source IP
-2. Count the number of failed attempts and the time window
-3. Determine whether the account was eventually successfully accessed (Event ID 4624 / successful SSH login)
-4. Check whether the source IP appears in other log sources around the same time
-5. Review whether the account exists and whether it has elevated privileges
-6. Determine if this is an internal or external source
+1. Opened Wazuh Threat Hunting — observed 21 authentication failures spike on dashboard
+2. Filtered events by `data.win.system.eventID: 4625` — returned 21 results
+3. Expanded individual event and confirmed:
+   - `data.win.eventdata.targetUserName` = `labvictim`
+   - `data.win.system.eventID` = `4625`
+   - `rule.description` = Logon Failure
+4. Checked source address field to identify origin of attempts
+5. Opened Event Viewer on Windows 10 VM → Windows Logs → Security → filtered for 4625 — confirmed same events visible in raw Windows logs
+6. Checked for Event ID 4624 (successful logon) — **none found** — attack did not succeed
 
 ---
 
 ## 8. Evidence / Screenshots
 
-[Insert screenshot of Wazuh alert showing the brute force detection here]
+| File | Description |
+|---|---|
+| `labvictim-account-created.png` | net user output confirming account creation |
+| `wazuh-threat-hunting-dashboard.png` | Wazuh Threat Hunting dashboard |
+| `wazuh-brute-force-alert.png` | Dashboard showing 21 authentication failures |
+| `wazuh-brute-force-top5-alerts.png` | Top 5 alerts showing authentication_failed group |
+| `wazuh-4625-events-filtered.png` | Filtered view — 21 x Event ID 4625 |
+| `wazuh-4625-event-detail.png` | Expanded event showing targetUserName and all fields |
+| `windows-event-viewer-4625.png` | Event Viewer on Windows 10 showing raw 4625 logs |
 
-[Insert screenshot of Windows Event Viewer showing clustered 4625 events here]
-
-[Insert screenshot of Linux auth.log entries showing failed SSH attempts here]
-
-[Insert screenshot of Splunk search results here]
+![Wazuh dashboard showing 21 authentication failures](../screenshots/wazuh-brute-force-alert.png)
+![Wazuh filtered view showing Event ID 4625](../screenshots/wazuh-4625-events-filtered.png)
+![Windows Event Viewer showing 4625 events](../screenshots/windows-event-viewer-4625.png)
 
 ---
 
@@ -90,26 +122,29 @@ Expected log sources:
 | **Sub-technique** | T1110.001 — Password Guessing |
 | **Reference** | https://attack.mitre.org/techniques/T1110/ |
 
-[Update once confirmed in your lab.]
-
 ---
 
 ## 10. Response / Remediation
 
-- Lock or disable the targeted account temporarily if compromise is suspected
-- Block the source IP if confirmed malicious
-- Enforce account lockout policies (e.g., lock after 5 failed attempts)
-- Enable MFA for remote access services such as RDP and SSH
-- Review whether any successful logon followed the failed attempts
+- Block the source IP at the firewall if confirmed malicious
+- Temporarily lock the targeted account
+- Confirm no successful logon (Event ID 4624) followed the failures
+- Enforce account lockout policy — lock after 5 failed attempts
+- Enable MFA on all remote access services (RDP, SSH)
+- Reset account password if any successful logon was detected
 
 ---
 
 ## 11. Lessons Learned
 
-[Add your reflections here after completing this scenario.]
+- Wazuh detected the brute force with no custom rules needed — built-in rules fired correctly
+- Event ID 4625 is visible in both Wazuh and Windows Event Viewer simultaneously
+- Filtering by `data.win.system.eventID` in Threat Hunting is a fast and effective triage method
+- The critical investigation step is checking for Event ID 4624 after a cluster of 4625s — this determines whether the attack succeeded
+- A real brute force from Kali using a tool like Hydra would generate a much higher volume in a shorter window
 
 ---
 
 ## 12. Status
 
-🔄 In Progress — [Add completion date once fully documented]
+✅ Complete — 08 June 2026

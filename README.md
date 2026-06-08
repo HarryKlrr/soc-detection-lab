@@ -77,7 +77,7 @@ The lab is designed to produce portfolio-quality evidence of practical Blue Team
 | # | Scenario | Technique Simulated | Logs Collected | Detection Method | Status | Link |
 |---|---|---|---|---|---|---|
 | 1 | Nmap Port Scan | Network reconnaissance | Wazuh network alerts, firewall logs | Wazuh rule / Splunk SPL | 🔄 In Progress | [View](attack-scenarios/nmap-scan-detection.md) |
-| 2 | Failed Login / Brute Force | Credential attack (T1110) | Windows Event 4625 / Linux auth.log | Threshold alert — Wazuh + Splunk | 🔄 In Progress | [View](attack-scenarios/failed-login-bruteforce.md) |
+| 2 | Failed Login / Brute Force | Credential attack (T1110) | Windows Event 4625 | Wazuh built-in authentication_failed rule | ✅ Complete | [View](attack-scenarios/failed-login-bruteforce.md) |
 | 3 | Suspicious PowerShell | Execution via PowerShell (T1059.001) | Sysmon Event 1, Windows Event 4688 | Process creation rule | 🔄 In Progress | [View](attack-scenarios/suspicious-powershell.md) |
 | 4 | New Admin Account Created | Persistence — account creation (T1136) | Windows Event 4720, 4728 | Account creation alert | 🔄 In Progress | [View](attack-scenarios/new-admin-account-created.md) |
 | 5 | Windows Defender Disabled | Defence evasion (T1562.001) | Windows Event 5007 | Defender config change rule | 🔄 In Progress | [View](attack-scenarios/defender-disabled.md) |
