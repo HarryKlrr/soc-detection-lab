@@ -12,13 +12,11 @@ Host-Only Network: 192.168.56.0/24
 ┌──────────────────────────────────────────────────────┐
 │  192.168.56.10   Kali Linux       (Attack VM)        │
 │  192.168.56.20   Windows 10       (Target)           │
-│  192.168.56.30   Ubuntu 22.04     (Target)           │
-│  192.168.56.40   Wazuh Manager    (SIEM/HIDS)        │
-│  192.168.56.50   Splunk           (SIEM)             │
+│  192.168.56.101  Wazuh Manager    (SIEM/HIDS)        │
 └──────────────────────────────────────────────────────┘
 ```
 
-> Note: IP addresses above are examples. Replace with your actual lab addresses.
+> Ubuntu target and Splunk to be added in a later phase.
 
 ## Network Isolation
 

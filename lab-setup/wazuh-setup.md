@@ -2,32 +2,42 @@
 
 ## Overview
 
-Wazuh is deployed as the primary HIDS and SIEM platform. The Wazuh Manager runs on a dedicated Ubuntu VM and receives logs from agents installed on the Windows and Linux target machines.
+Wazuh is deployed as the primary HIDS and SIEM platform using the official pre-built OVA appliance imported into VirtualBox.
+
+| Component | Detail |
+|---|---|
+| Deployment method | Pre-built OVA (Wazuh all-in-one appliance) |
+| Manager IP | 192.168.56.101 (static — set via `nmtui` on the Wazuh VM) |
+| Dashboard URL | https://192.168.56.101 |
+| Network | Host-only — isolated from internet |
 
 ## Installation
 
-### Wazuh Manager
+### Wazuh Manager (OVA Method)
 
-[Add your Wazuh Manager installation notes here.]
-
-Reference: [https://documentation.wazuh.com/current/installation-guide/](https://documentation.wazuh.com/current/installation-guide/)
+1. Download the Wazuh OVA from: https://documentation.wazuh.com/current/deployment-options/virtual-machine/virtual-machine.html
+2. In VirtualBox: File → Import Appliance → select the `.ova` file
+3. Once imported, start the VM
+4. Log into the VM console and set a static IP using `sudo nmtui`
+5. Set IP to `192.168.56.101`, subnet `255.255.255.0`
+6. Access the dashboard at `https://192.168.56.101` from the host machine
 
 ### Wazuh Agent — Windows Target
 
-[Add steps for installing the Wazuh agent on your Windows VM here.]
+Transferred the Wazuh agent MSI to the Windows VM via a VirtualBox shared folder (requires Guest Additions installed on the Windows VM).
 
-### Wazuh Agent — Linux Target
+Install command (PowerShell as Administrator on Windows VM):
+```powershell
+msiexec.exe /i wazuh-agent.msi /q WAZUH_MANAGER="192.168.56.101" WAZUH_AGENT_NAME="Windows10-Target"
+```
 
-[Add steps for installing the Wazuh agent on your Ubuntu VM here.]
-
-## Agent Configuration
-
-[Add notes on ossec.conf or agent.conf customisations here.]
+Start the agent:
+```cmd
+NET START WazuhSvc
+```
 
 ## Verification
 
-[Add confirmation that agents are active and reporting to the manager — e.g., output of `wazuh-control status` or a screenshot of the Wazuh dashboard showing connected agents.]
-
----
-
-*[Insert screenshot of Wazuh dashboard with connected agents — see `screenshots/`]*
+Confirmed working:
+- Agent status: **Active** — visible in Wazuh dashboard under Agents
+- Events flowing into Threat Hunting — Event ID 4625 alerts detected during brute force scenario

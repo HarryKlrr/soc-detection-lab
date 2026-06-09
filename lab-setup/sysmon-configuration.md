@@ -6,15 +6,27 @@ Sysmon (System Monitor) is deployed on the Windows target VM to provide enhanced
 
 ## Installation
 
-Sysmon is available from the Microsoft Sysinternals suite:
-[https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon)
+Downloaded `Sysmon.zip` from: https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon
+
+Transferred to Windows VM via VirtualBox shared folder, extracted to Desktop.
+
+Install command (PowerShell as Administrator on Windows VM):
+```powershell
+cd C:\Users\harry\Desktop\Sysmon
+.\Sysmon64.exe -accepteula -i C:\Users\harry\Desktop\sysmonconfig-export.xml
+```
 
 ## Configuration File
 
-A community Sysmon configuration is recommended as a baseline. The SwiftOnSecurity config is widely used in SOC environments:
-[https://github.com/SwiftOnSecurity/sysmon-config](https://github.com/SwiftOnSecurity/sysmon-config)
+Using the SwiftOnSecurity community config — industry standard baseline that balances coverage with low noise:
+https://github.com/SwiftOnSecurity/sysmon-config
 
-[Add notes on the specific config file used in this lab here.]
+Config filename: `sysmonconfig-export.xml`
+
+Verify Sysmon is running and config is loaded:
+```powershell
+.\Sysmon64.exe -s
+```
 
 ## Key Event IDs Captured
 
