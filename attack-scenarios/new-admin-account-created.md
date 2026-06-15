@@ -28,39 +28,42 @@ Creating a new local administrator account is a common persistence technique use
 
 ## 4. Simulated Activity
 
-The following commands were run **only on the local Windows lab VM** to simulate a persistence technique:
+The following commands were run on the local Windows 10 VM to simulate a persistence technique:
 
 ```cmd
-# Create a new local user account
-net user labtest Password123! /add
-
-# Add the account to the local Administrators group
-net localgroup administrators labtest /add
+net user labadmin Password123! /add
+net localgroup administrators labadmin /add
 ```
 
-> Executed only within the isolated lab VM. This simulates a technique an attacker might use after gaining initial access.
+This creates a new local user `labadmin` and immediately adds it to the Administrators group — exactly the steps an attacker takes to establish a persistent backdoor account after gaining initial access.
+
+> Executed only within the isolated lab VM (192.168.56.20) on a host-only network. No external systems were involved.
 
 ---
 
 ## 5. Logs Generated
 
-Expected log sources:
+| Log Source | Event ID | Description | Count |
+|---|---|---|---|
+| Windows Security Log | 4720 | User account created — target: `labadmin1` | 1 |
+| Windows Security Log | 4732 | Account added to local Administrators group | 2 |
+| Wazuh | Rule 60154 — level 12 | "Administrators Group Changed" | 2 hits |
 
-- **Windows Event ID 4720**: A user account was created
-- **Windows Event ID 4728**: A member was added to a security-enabled global group
-- **Windows Event ID 4732**: A member was added to a security-enabled local group (Administrators)
-
-[Add actual log entries collected from your lab here.]
+Key fields observed:
+- `data.win.system.message` — showed "A user account was enabled" with target account `labadmin1`
+- Subject Account Name: `harry` (the account that created it)
+- Target Account Name: `labadmin1`
 
 ---
 
 ## 6. Detection Logic
 
-**Wazuh:**
-[Add tested Wazuh rule here — alert on Event ID 4720 and 4732 — see `detection-rules/wazuh-rules.md`]
+**Wazuh built-in rule fired automatically — no custom rule required.**
 
-**Splunk SPL:**
-[Add SPL query here — search for Event ID 4720 and 4732 with group name "Administrators" — see `detection-rules/splunk-queries.md`]
+- Rule ID: 60154
+- Rule level: 12 (High)
+- Description: Administrators Group Changed
+- Triggered by: Event ID 4732 — account added to local Administrators group
 
 ---
 
@@ -77,13 +80,13 @@ Expected log sources:
 
 ## 8. Evidence / Screenshots
 
-[Insert screenshot of Windows Event ID 4720 here]
+| File | Description |
+|---|---|
+| `wazuh-admin-group-changed.png` | Wazuh showing 2 hits for rule 60154 — Administrators Group Changed at level 12 |
+| `wazuh-new-account-detail.png` | Expanded event showing target account `labadmin1` and subject account `harry` |
 
-[Insert screenshot of Windows Event ID 4732 showing the Administrators group here]
-
-[Insert screenshot of Wazuh alert triggered by the account creation here]
-
-[Insert screenshot of Splunk search results here]
+![Wazuh alert showing Administrators Group Changed](../screenshots/wazuh-admin-group-changed.png)
+![Expanded event showing new account details](../screenshots/wazuh-new-account-detail.png)
 
 ---
 
@@ -112,10 +115,13 @@ Expected log sources:
 
 ## 11. Lessons Learned
 
-[Add your reflections here after completing this scenario.]
+- Wazuh rule 60154 fired at level 12 automatically — no custom rule needed for this common persistence technique
+- The critical combination to look for is 4720 (account created) followed immediately by 4732 (added to Administrators) — this sequence is almost always malicious
+- The subject field in the event tells you WHO created the account — key for determining if this was authorised
+- In a real incident the next step is checking Event ID 4624 to see if the new account has already been used to log in
 
 ---
 
 ## 12. Status
 
-🔄 In Progress — [Add completion date once fully documented]
+✅ Complete — 15 June 2026
