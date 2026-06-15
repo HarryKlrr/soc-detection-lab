@@ -119,6 +119,10 @@ Creating an account and immediately adding it to Administrators is one of the mo
 | 1 | `wazuh-admin-group-changed.png` | Wazuh Threat Hunting — rule 60154, 2 hits at level 12 |
 | 2 | `wazuh-new-account-detail.png` | Wazuh — expanded event showing target account `labadmin` and subject `harry` |
 
+![Wazuh — rule 60154, 2 hits at level 12](../screenshots/wazuh-admin-group-changed.png)
+
+![Wazuh — event detail showing labadmin and subject harry](../screenshots/wazuh-new-account-detail.png)
+
 ---
 
 *MITRE ATT&CK: https://attack.mitre.org/techniques/T1136/001/*

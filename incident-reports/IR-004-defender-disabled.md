@@ -116,6 +116,10 @@ Wazuh had no alert for this because the Defender Operational channel wasn't in `
 | 1 | `defender-disabled-event5007.png` | Windows Event Viewer — Event ID 5007 showing configuration change |
 | 2 | `defender-reenabled.png` | Windows Security app — real-time protection confirmed active |
 
+![Event Viewer — Event ID 5007 Defender configuration changed](../screenshots/defender-disabled-event5007.png)
+
+![Windows Security — real-time protection confirmed active](../screenshots/defender-reenabled.png)
+
 ---
 
 *MITRE ATT&CK: https://attack.mitre.org/techniques/T1562/001/*

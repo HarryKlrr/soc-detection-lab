@@ -125,6 +125,10 @@ Searched Sysmon Event ID 3 (network connections) and Event ID 11 (file creation)
 | 1 | `wazuh-powershell-detected.png` | Wazuh Threat Hunting — rule 92057 fired, level 12 |
 | 2 | `wazuh-powershell-cmdline.png` | Wazuh — expanded event showing full commandLine and parentImage |
 
+![Wazuh — rule 92057 fired, level 12](../screenshots/wazuh-powershell-detected.png)
+
+![Wazuh — commandLine and parentImage fields](../screenshots/wazuh-powershell-cmdline.png)
+
 ---
 
 *MITRE ATT&CK: https://attack.mitre.org/techniques/T1059/001/*

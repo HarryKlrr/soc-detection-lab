@@ -118,6 +118,18 @@ Opened Event Viewer → Windows Logs → Security → filtered for 4625. Same 21
 | 5 | `windows-event-viewer-4625.png` | Windows Event Viewer — Security log |
 | 6 | `account-lockout-policy.png` | Windows CMD — net accounts output |
 
+![labvictim account created](../screenshots/labvictim-account-created.png)
+
+![Wazuh brute force alert — rule 60204 fired](../screenshots/wazuh-brute-force-alert.png)
+
+![Wazuh — 21 x Event ID 4625 filtered](../screenshots/wazuh-4625-events-filtered.png)
+
+![Wazuh — Event ID 4625 detail](../screenshots/wazuh-4625-event-detail.png)
+
+![Windows Event Viewer — Security log 4625](../screenshots/windows-event-viewer-4625.png)
+
+![Account lockout policy applied](../screenshots/account-lockout-policy.png)
+
 ---
 
 *MITRE ATT&CK: https://attack.mitre.org/techniques/T1110/001/*

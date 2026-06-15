@@ -121,6 +121,8 @@ When the Windows Firewall was on, Nmap showed all ports as filtered — the scan
 |---|---|---|
 | 1 | `nmap-scan-results.png` | Kali Linux terminal — Nmap output |
 
+![Nmap scan results — 3 open ports on 192.168.56.20](../screenshots/nmap-scan-results.png)
+
 ---
 
 *MITRE ATT&CK: https://attack.mitre.org/techniques/T1046/*
