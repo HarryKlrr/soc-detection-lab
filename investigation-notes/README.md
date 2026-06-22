@@ -10,3 +10,4 @@ Reference documentation to support log analysis and alert investigation during t
 | [linux-auth-logs.md](linux-auth-logs.md) | Linux authentication log reference |
 | [network-indicators.md](network-indicators.md) | Network-based indicators of compromise reference |
 | [timeline-analysis.md](timeline-analysis.md) | Guidance on building an incident timeline |
+| [detection-engineering-writeup.md](detection-engineering-writeup.md) | Wazuh rule coverage audit — IR-006/IR-007 detection gap investigation, including an unresolved custom-rule finding |
