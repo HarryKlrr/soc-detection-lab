@@ -16,14 +16,6 @@ A standard investigation timeline includes the following columns:
 
 ---
 
-## Template: Blank Timeline
-
-| Timestamp (UTC) | Log Source | Event ID / Type | Description | Analyst Notes |
-|---|---|---|---|---|
-| [Add] | [Add] | [Add] | [Add] | [Add] |
-
----
-
 ## Example: Brute Force Scenario (Real Lab Data)
 
 Actual timeline from [`../incident-reports/IR-001-brute-force.md`](../incident-reports/IR-001-brute-force.md):

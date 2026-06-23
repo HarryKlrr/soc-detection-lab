@@ -2,8 +2,6 @@
 
 Custom rules developed for this lab. All rules are added to the Wazuh Manager in `/var/ossec/etc/rules/local_rules.xml`.
 
-> Rules below are templates. Replace `[Add tested Wazuh rule here]` with your actual tested rule XML once validated in the lab.
-
 ---
 
 ## Rule: Nmap Port Scan Detection
@@ -109,5 +107,3 @@ Despite the decoder name, event ID, and command-line value all being independent
 2. Rule IDs for custom rules must be between `100000` and `120000`
 3. After editing, restart the Wazuh Manager: `systemctl restart wazuh-manager`
 4. Test rules using `wazuh-logtest` before deploying
-
-[Add any additional notes from your lab experience here.]

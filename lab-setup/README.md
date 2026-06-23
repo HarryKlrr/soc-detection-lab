@@ -14,5 +14,3 @@ This section documents the configuration of the home lab environment used for th
 ## Screenshots
 
 Lab environment screenshots are stored in [`screenshots/`](screenshots/).
-
-> Splunk was originally planned for this lab (see `network-design.md`) but was never actually deployed — all detection in this project runs on Wazuh.

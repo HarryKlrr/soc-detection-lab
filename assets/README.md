@@ -1,5 +1,3 @@
 # Assets
 
-Supporting assets for this project — icons, images, logos, and other visual resources.
-
-[Add any supporting asset files here.]
+Empty for now — nothing in this project currently needs a supporting image beyond what's already in `screenshots/` and `diagrams/`.

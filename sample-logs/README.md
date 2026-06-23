@@ -1,8 +1,6 @@
 # Sample Logs
 
-This directory contains sanitised and anonymised log samples collected from the lab during attack simulations.
-
-> **Important:** Do not commit real log files containing sensitive information such as real IP addresses, hostnames, usernames, or other personally identifiable data. Sanitise all logs before committing. Replace real values with clearly marked placeholders (e.g., `[REDACTED-IP]`, `[HOSTNAME]`).
+Sanitised log exports referenced from the incident reports below — real IPs, hostnames, and usernames are swapped for placeholders like `[REDACTED-IP]`.
 
 ## Contents
 
@@ -18,10 +16,3 @@ All samples below are saved flat in this directory (not split into subfolders) a
 | `60228-scheduledtask-4698-alert.json` | Wazuh alert export — rule 60228 (Event ID 4698) | [IR-007](../incident-reports/IR-007-scheduled-task.md) |
 | `sysmon1-schtasks-persistence-sample.xml` | Sysmon Event ID 1 export — `schtasks.exe` persistence | [IR-007](../incident-reports/IR-007-scheduled-task.md) |
 | `sysmon1-powershell-encoded-sample.xml` | Sysmon Event ID 1 export — `-EncodedCommand` process (re-exported 2026-06-23) | [IR-002](../incident-reports/IR-002-suspicious-powershell.md) |
-
-## Adding More Logs
-
-1. Export the relevant log entries from your SIEM or log source
-2. Sanitise sensitive fields
-3. Save to this directory with a descriptive filename (e.g., `4625-brute-force-sample.xml`)
-4. Reference the file in the relevant attack scenario or incident report's Evidence section

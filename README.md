@@ -6,7 +6,7 @@
 
 ## ⚠️ Ethical & Legal Notice
 
-All activity documented in this repository was performed **exclusively within a private, isolated, locally hosted lab environment**. No scans, attacks, or simulations were directed at any external system, public network, or device without explicit authorisation. This project exists solely for educational and professional development purposes. All techniques are documented in alignment with responsible disclosure and ethical security research principles.
+Everything in this repo happened inside a private, isolated lab on my own hardware — nothing here ever touched an external network or system.
 
 ---
 
@@ -99,20 +99,7 @@ The lab is designed to produce portfolio-quality evidence of practical Blue Team
 - **Report Writing** — Producing professional, structured incident reports
 - **MITRE ATT&CK Mapping** — Mapping observed behaviours to ATT&CK tactics and techniques
 
----
-
-## Portfolio Relevance
-
-This project demonstrates practical readiness for an entry-level SOC Analyst or Junior Cyber Security Analyst role. It covers the core competencies that appear consistently in job descriptions for these positions:
-
-- Hands-on experience with an industry-standard SIEM/HIDS platform (Wazuh)
-- Practical knowledge of Windows and Linux log sources
-- Ability to write and apply detection rules
-- Structured approach to incident investigation and documentation
-- Familiarity with the MITRE ATT&CK framework
-- Professional written communication through incident reports and playbooks
-
-Each scenario mirrors the type of alert a Tier 1 or Tier 2 SOC analyst would encounter and triage in a real environment.
+Each scenario mirrors the kind of alert a Tier 1 or Tier 2 SOC analyst would actually triage on the job.
 
 ---
 
@@ -129,7 +116,6 @@ soc-detection-lab/
 ├── screenshots/            # Evidence screenshots from the lab
 ├── diagrams/               # Architecture and workflow diagrams
 ├── playbooks/              # Incident response playbooks
-├── templates/              # Reusable templates for reports, rules, and notes
 └── assets/                 # Supporting assets
 ```
 

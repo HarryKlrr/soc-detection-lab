@@ -89,7 +89,7 @@ Escalate to a senior analyst or incident response team if:
 
 ## 8. Post-Incident Actions
 
-- [ ] Complete the incident report using the template in `templates/incident-report-template.md`
+- [ ] Complete the incident report
 - [ ] Update detection rules if gaps were identified
 - [ ] Conduct a brief lessons learned review
 - [ ] Close the alert in the SIEM with a documented disposition

@@ -29,5 +29,3 @@ All reports follow a consistent structure:
 8. Remediation Recommendations
 9. Lessons Learned
 10. Evidence / Screenshots
-
-> See [`../templates/incident-report-template.md`](../templates/incident-report-template.md) for the reusable template.

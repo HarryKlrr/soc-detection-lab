@@ -13,7 +13,3 @@ This section documents each simulated attack scenario performed in the local lab
 | 5 | [Windows Defender Disabled](defender-disabled.md) | T1562.001 — Disable or Modify Tools | ✅ Complete |
 
 > Note: scenarios 6–9 (log clearing, scheduled task persistence, phishing, malware hash triage) were documented directly as formal incident reports rather than informal scenario write-ups — see [`../incident-reports/`](../incident-reports/).
-
-## Ethical Notice
-
-All scenarios are performed in a **private, isolated, locally hosted lab environment**. No techniques are directed at any external system or network. Documentation is provided for educational purposes only.

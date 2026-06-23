@@ -1,10 +1,8 @@
 # Screenshots
 
-This directory contains evidence screenshots from the lab environment.
+Evidence screenshots referenced throughout the incident reports and attack scenarios live here.
 
 ## Naming Convention
-
-Use descriptive, consistent filenames:
 
 ```
 [scenario]-[tool]-[description].png
@@ -16,9 +14,3 @@ Examples:
   admin-account-event4720.png
   defender-disabled-event5007.png
 ```
-
-## Organisation
-
-Where the number of screenshots is large, organise them into subdirectories by scenario.
-
-[Add your screenshots here as each lab scenario is completed.]

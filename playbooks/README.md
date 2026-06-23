@@ -12,6 +12,4 @@ Structured response playbooks for the most common alert types encountered in thi
 
 ## Purpose
 
-Playbooks provide a standardised, repeatable process for responding to a specific alert type. They are used in SOC environments to ensure consistent triage and response, regardless of which analyst handles the alert.
-
-> See [`../templates/playbook-template.md`](../templates/playbook-template.md) for the reusable template.
+Each playbook walks through how to triage and respond to one specific alert type, step by step, so the response doesn't depend on who's on shift.
