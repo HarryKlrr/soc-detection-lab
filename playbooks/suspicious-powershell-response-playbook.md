@@ -1,9 +1,9 @@
 # Playbook — Suspicious PowerShell Execution
 
 **Version:** 1.0
-**Last Updated:** [Add date]
-**Author:** John
-**Applies To:** [Add: Windows / Linux / Both]
+**Last Updated:** 23 June 2026
+**Author:** Harry (GitHub: [harryklrr](https://github.com/harryklrr))
+**Applies To:** Windows
 
 ---
 
@@ -15,7 +15,7 @@ This playbook provides a structured process for investigating and responding to 
 
 ## 2. Alert Trigger
 
-**Alert Name / Rule:** [Add the Wazuh rule name or Splunk alert name that triggers this playbook]
+**Alert Name / Rule:** Wazuh Rule 92057 — "Powershell.exe spawned a powershell process which executed a base64 encoded command" (level 12)
 
 **Trigger Condition:** Detection of PowerShell process creation with encoded commands, execution policy bypass, hidden window, or unusual parent process.
 
@@ -69,7 +69,7 @@ Once the immediate threat is contained:
 
 Collect and preserve the following evidence before taking any destructive actions:
 
-- [ ] Export relevant SIEM alerts (Wazuh / Splunk)
+- [ ] Export relevant SIEM alerts (Wazuh)
 - [ ] Export relevant Windows Event Logs or Linux auth logs
 - [ ] Screenshot all key alert and investigation views
 - [ ] Document the timeline of events
@@ -98,9 +98,9 @@ Escalate to a senior analyst or incident response team if:
 
 ## 9. References
 
-- Relevant MITRE ATT&CK page: [Add link]
-- Relevant detection rule: [Add link to `detection-rules/`]
-- Related incident report: [Add link to `incident-reports/`]
+- Relevant MITRE ATT&CK page: https://attack.mitre.org/techniques/T1059/001/
+- Relevant detection rule: [`../detection-rules/wazuh-rules.md`](../detection-rules/wazuh-rules.md) — Rule 92057
+- Related incident report: [`../incident-reports/IR-002-suspicious-powershell.md`](../incident-reports/IR-002-suspicious-powershell.md)
 
 ---
 

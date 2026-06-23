@@ -1,9 +1,9 @@
 # Playbook — Compromised or Unauthorised Account Activity
 
 **Version:** 1.0
-**Last Updated:** [Add date]
-**Author:** John
-**Applies To:** [Add: Windows / Linux / Both]
+**Last Updated:** 23 June 2026
+**Author:** Harry (GitHub: [harryklrr](https://github.com/harryklrr))
+**Applies To:** Windows
 
 ---
 
@@ -15,7 +15,7 @@ This playbook provides a structured process for investigating and responding to 
 
 ## 2. Alert Trigger
 
-**Alert Name / Rule:** [Add the Wazuh rule name or Splunk alert name that triggers this playbook]
+**Alert Name / Rule:** Wazuh Rule 60154 — "Administrators Group Changed" (level 12)
 
 **Trigger Condition:** Evidence of account misuse — e.g., logon from unexpected IP, new account created, account added to privileged group, account used at unusual time.
 
@@ -70,7 +70,7 @@ Once the immediate threat is contained:
 
 Collect and preserve the following evidence before taking any destructive actions:
 
-- [ ] Export relevant SIEM alerts (Wazuh / Splunk)
+- [ ] Export relevant SIEM alerts (Wazuh)
 - [ ] Export relevant Windows Event Logs or Linux auth logs
 - [ ] Screenshot all key alert and investigation views
 - [ ] Document the timeline of events
@@ -99,9 +99,9 @@ Escalate to a senior analyst or incident response team if:
 
 ## 9. References
 
-- Relevant MITRE ATT&CK page: [Add link]
-- Relevant detection rule: [Add link to `detection-rules/`]
-- Related incident report: [Add link to `incident-reports/`]
+- Relevant MITRE ATT&CK page: https://attack.mitre.org/techniques/T1136/001/
+- Relevant detection rule: [`../detection-rules/wazuh-rules.md`](../detection-rules/wazuh-rules.md) — Rule 60154
+- Related incident report: [`../incident-reports/IR-003-new-admin-account.md`](../incident-reports/IR-003-new-admin-account.md)
 
 ---
 

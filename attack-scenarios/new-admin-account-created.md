@@ -10,7 +10,7 @@ Creating a new local administrator account is a common persistence technique use
 
 - Simulate the creation of a new local administrator account on the Windows target VM
 - Capture Windows Event Log entries for account creation and group membership changes
-- Configure a detection alert in Wazuh and/or Splunk
+- Configure a detection alert in Wazuh
 - Document the investigation
 
 ---
@@ -20,7 +20,7 @@ Creating a new local administrator account is a common persistence technique use
 | Component | Detail |
 |---|---|
 | Target machine | Windows 10 — 192.168.56.20 (host-only network) |
-| Detection platform | Wazuh, Splunk |
+| Detection platform | Wazuh |
 | Log source | Windows Security Event Log — Event IDs 4720, 4728, 4732 |
 | Network | Isolated host-only adapter — no internet routing |
 
@@ -45,14 +45,14 @@ This creates a new local user `labadmin` and immediately adds it to the Administ
 
 | Log Source | Event ID | Description | Count |
 |---|---|---|---|
-| Windows Security Log | 4720 | User account created — target: `labadmin1` | 1 |
+| Windows Security Log | 4720 | User account created — target: `labadmin` | 1 |
 | Windows Security Log | 4732 | Account added to local Administrators group | 2 |
 | Wazuh | Rule 60154 — level 12 | "Administrators Group Changed" | 2 hits |
 
 Key fields observed:
-- `data.win.system.message` — showed "A user account was enabled" with target account `labadmin1`
+- `data.win.system.message` — showed "A user account was enabled" with target account `labadmin`
 - Subject Account Name: `harry` (the account that created it)
-- Target Account Name: `labadmin1`
+- Target Account Name: `labadmin`
 
 ---
 
@@ -83,7 +83,7 @@ Key fields observed:
 | File | Description |
 |---|---|
 | `wazuh-admin-group-changed.png` | Wazuh showing 2 hits for rule 60154 — Administrators Group Changed at level 12 |
-| `wazuh-new-account-detail.png` | Expanded event showing target account `labadmin1` and subject account `harry` |
+| `wazuh-new-account-detail.png` | Expanded event showing target account `labadmin` and subject account `harry` |
 
 ![Wazuh alert showing Administrators Group Changed](../screenshots/wazuh-admin-group-changed.png)
 ![Expanded event showing new account details](../screenshots/wazuh-new-account-detail.png)
@@ -98,8 +98,6 @@ Key fields observed:
 | **Technique** | T1136 — Create Account |
 | **Sub-technique** | T1136.001 — Local Account |
 | **Reference** | https://attack.mitre.org/techniques/T1136/001/ |
-
-[Update once confirmed in your lab.]
 
 ---
 

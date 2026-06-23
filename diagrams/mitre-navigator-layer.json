@@ -1,0 +1,149 @@
+{
+  "name": "SOC Detection Lab — Technique Coverage",
+  "versions": {
+    "attack": "15",
+    "navigator": "5.1.0",
+    "layer": "4.5"
+  },
+  "domain": "enterprise-attack",
+  "description": "Techniques exercised across IR-001 through IR-009 in the SOC Detection Lab portfolio project. Color reflects Wazuh detection status, not severity. Import this file directly at https://mitre-attack.github.io/attack-navigator/",
+  "filters": {
+    "platforms": ["Windows", "Linux", "PRE"]
+  },
+  "sorting": 0,
+  "layout": {
+    "layout": "side",
+    "aggregateFunction": "average",
+    "showID": true,
+    "showName": true,
+    "showAggregateScores": false,
+    "countUnscored": false
+  },
+  "hideDisabled": false,
+  "techniques": [
+    {
+      "techniqueID": "T1110.001",
+      "tactic": "credential-access",
+      "color": "#8ec843",
+      "score": 100,
+      "comment": "IR-001 — confirmed detected via Wazuh stock rules 60122/60204 on a burst of 21x Event ID 4625.",
+      "enabled": true,
+      "metadata": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1059.001",
+      "tactic": "execution",
+      "color": "#8ec843",
+      "score": 100,
+      "comment": "IR-002 — confirmed detected via Wazuh stock rule 92057 on a Sysmon Event ID 1 commandLine containing -EncodedCommand.",
+      "enabled": true,
+      "metadata": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1136.001",
+      "tactic": "persistence",
+      "color": "#8ec843",
+      "score": 100,
+      "comment": "IR-003 — confirmed detected via Wazuh stock rule 60154 on Event ID 4732 (Administrators group changed).",
+      "enabled": true,
+      "metadata": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1562.001",
+      "tactic": "defense-evasion",
+      "color": "#ffe766",
+      "score": 50,
+      "comment": "IR-004 — Defender Operational log channel wasn't forwarded at all; fixed via ossec.conf. Whether a rule fires on Event 5007 now that it's forwarded has not been retested.",
+      "enabled": true,
+      "metadata": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1046",
+      "tactic": "discovery",
+      "color": "#ff6666",
+      "score": 0,
+      "comment": "IR-005 — Wazuh is a HIDS and never sees an external Nmap scan; no Windows Event Log entry is generated. Out of scope for this stack without a NIDS or firewall-log forwarding.",
+      "enabled": true,
+      "metadata": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1070.001",
+      "tactic": "defense-evasion",
+      "color": "#8ec843",
+      "score": 100,
+      "comment": "IR-006 — confirmed detected via Wazuh stock rule 63103 on Event ID 1102. Originally misdocumented as a gap due to a flawed search; corrected after the alert was found firing correctly, including on the original incident date.",
+      "enabled": true,
+      "metadata": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1053.005",
+      "tactic": "persistence",
+      "color": "#ffe766",
+      "score": 50,
+      "comment": "IR-007 — Event 4698 (now covered by stock rule 60228) and Event 106 logging gaps both fixed at the OS audit-policy/log-channel level. A custom Wazuh rule (100004) targeting the same technique via Sysmon does not fire; root cause unresolved.",
+      "enabled": true,
+      "metadata": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1566.002",
+      "tactic": "initial-access",
+      "color": "#b5b5b5",
+      "comment": "IR-008 — static triage of a sourced phishing sample. Analysis exercise only; not a live SIEM detection in this lab (no mail gateway or SIEM was in the path).",
+      "enabled": true,
+      "metadata": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1204.002",
+      "tactic": "execution",
+      "color": "#b5b5b5",
+      "comment": "IR-009 — hash-based OSINT triage of a real Gh0stRAT/SilverFox/ValleyRAT sample sourced from MalwareBazaar. Analysis exercise only; sample was never executed, so this is not a live detection in this lab.",
+      "enabled": true,
+      "metadata": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1497",
+      "tactic": "defense-evasion",
+      "color": "#b5b5b5",
+      "comment": "IR-009 supporting technique — anti-VM/anti-sandbox YARA match observed in the sample's static analysis only. Never executed or tested live.",
+      "enabled": true,
+      "metadata": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1071.001",
+      "tactic": "command-and-control",
+      "color": "#b5b5b5",
+      "comment": "IR-009 supporting technique — C2 domain/IP documented from MalwareBazaar IOC data only. Never contacted or tested live.",
+      "enabled": true,
+      "metadata": [],
+      "showSubtechniques": false
+    }
+  ],
+  "gradient": {
+    "colors": ["#ff6666", "#ffe766", "#8ec843"],
+    "minValue": 0,
+    "maxValue": 100
+  },
+  "legendItems": [
+    { "label": "Confirmed detected — stock or custom Wazuh rule fires", "color": "#8ec843" },
+    { "label": "Partial — logging gap fixed, rule coverage open/unresolved", "color": "#ffe766" },
+    { "label": "No detection — out of scope for this HIDS-only stack", "color": "#ff6666" },
+    { "label": "Analysis/OSINT exercise — not a live SIEM detection in this lab", "color": "#b5b5b5" }
+  ],
+  "metadata": [],
+  "links": [],
+  "showTacticRowBackground": false,
+  "tacticRowBackground": "#dddddd",
+  "selectTechniquesAcrossTactics": true,
+  "selectSubtechniquesWithParent": false,
+  "selectVisibleTechniques": false
+}

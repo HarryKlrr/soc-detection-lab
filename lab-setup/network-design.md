@@ -16,7 +16,7 @@ Host-Only Network: 192.168.56.0/24
 └──────────────────────────────────────────────────────┘
 ```
 
-> Ubuntu target and Splunk to be added in a later phase.
+> Ubuntu target was planned but never built — no scenario in this lab uses it. Splunk was also planned but never deployed; all detection in this lab runs on Wazuh.
 
 ## Network Isolation
 

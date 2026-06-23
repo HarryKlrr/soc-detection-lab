@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Events><Event xmlns='http://schemas.microsoft.com/win/2004/08/events/event'><System><Provider Name='Microsoft-Windows-Sysmon' Guid='{5770385f-c22a-43e0-bf4c-06f5698ffbd9}'/><EventID>1</EventID><Version>5</Version><Level>4</Level><Task>1</Task><Opcode>0</Opcode><Keywords>0x8000000000000000</Keywords><TimeCreated SystemTime='2026-06-14T13:41:53.9974157Z'/><EventRecordID>891</EventRecordID><Correlation/><Execution ProcessID='2356' ThreadID='3244'/><Channel>Microsoft-Windows-Sysmon/Operational</Channel><Computer>Windows10-Targe</Computer><Security UserID='S-1-5-18'/></System><EventData><Data Name='RuleName'>-</Data><Data Name='UtcTime'>2026-06-14 13:41:53.991</Data><Data Name='ProcessGuid'>{774a23fa-afa1-6a2e-ba01-000000000a00}</Data><Data Name='ProcessId'>2800</Data><Data Name='Image'>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</Data><Data Name='FileVersion'>10.0.19041.546 (WinBuild.160101.0800)</Data><Data Name='Description'>Windows PowerShell</Data><Data Name='Product'>Microsoft® Windows® Operating System</Data><Data Name='Company'>Microsoft Corporation</Data><Data Name='OriginalFileName'>PowerShell.EXE</Data><Data Name='CommandLine'>"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -ExecutionPolicy Bypass -NoProfile -WindowStyle Hidden -EncodedCommand dwBoAG8AYQBtAGkA</Data><Data Name='CurrentDirectory'>C:\Windows\system32\</Data><Data Name='User'>WINDOWS10-TARGE\harry</Data><Data Name='LogonGuid'>{774a23fa-aaee-6a2e-9b11-040000000000}</Data><Data Name='LogonId'>0x4119b</Data><Data Name='TerminalSessionId'>1</Data><Data Name='IntegrityLevel'>High</Data><Data Name='Hashes'>MD5=04029E121A0CFA5991749937DD22A1D9,SHA256=9F914D42706FE215501044ACD85A32D58AAEF1419D404FDDFA5D3B48F66CCD9F,IMPHASH=7C955A0ABC747F57CCC4324480737EF7</Data><Data Name='ParentProcessGuid'>{774a23fa-af8f-6a2e-b601-000000000a00}</Data><Data Name='ParentProcessId'>2072</Data><Data Name='ParentImage'>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</Data><Data Name='ParentCommandLine'>"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" </Data><Data Name='ParentUser'>WINDOWS10-TARGE\harry</Data></EventData><RenderingInfo Culture='en-US'><Message>Process Create:
+RuleName: -
+UtcTime: 2026-06-14 13:41:53.991
+ProcessGuid: {774a23fa-afa1-6a2e-ba01-000000000a00}
+ProcessId: 2800
+Image: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+FileVersion: 10.0.19041.546 (WinBuild.160101.0800)
+Description: Windows PowerShell
+Product: Microsoft® Windows® Operating System
+Company: Microsoft Corporation
+OriginalFileName: PowerShell.EXE
+CommandLine: "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -ExecutionPolicy Bypass -NoProfile -WindowStyle Hidden -EncodedCommand dwBoAG8AYQBtAGkA
+CurrentDirectory: C:\Windows\system32\
+User: WINDOWS10-TARGE\harry
+LogonGuid: {774a23fa-aaee-6a2e-9b11-040000000000}
+LogonId: 0x4119B
+TerminalSessionId: 1
+IntegrityLevel: High
+Hashes: MD5=04029E121A0CFA5991749937DD22A1D9,SHA256=9F914D42706FE215501044ACD85A32D58AAEF1419D404FDDFA5D3B48F66CCD9F,IMPHASH=7C955A0ABC747F57CCC4324480737EF7
+ParentProcessGuid: {774a23fa-af8f-6a2e-b601-000000000a00}
+ParentProcessId: 2072
+ParentImage: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+ParentCommandLine: "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" 
+ParentUser: WINDOWS10-TARGE\harry</Message><Level>Information</Level><Task>Process Create (rule: ProcessCreate)</Task><Opcode>Info</Opcode><Channel></Channel><Provider></Provider><Keywords></Keywords></RenderingInfo></Event></Events>

@@ -24,19 +24,18 @@ A standard investigation timeline includes the following columns:
 
 ---
 
-## Example: Brute Force Scenario
+## Example: Brute Force Scenario (Real Lab Data)
 
-> This is a structural example only. Replace with actual timestamps and data from your lab.
+Actual timeline from [`../incident-reports/IR-001-brute-force.md`](../incident-reports/IR-001-brute-force.md):
 
 | Timestamp (UTC) | Log Source | Event ID / Type | Description | Analyst Notes |
 |---|---|---|---|---|
-| [T+0:00] | Linux auth.log | SSH Failed password | First failed login attempt for user root from 192.168.56.10 | Start of brute force activity |
-| [T+0:01] | Linux auth.log | SSH Failed password | Continued failed attempts — high frequency | Pattern consistent with automated tool |
-| [T+0:03] | Wazuh | Rule 5712 | Brute force threshold alert triggered | Alert fired — investigation begins |
-| [T+0:05] | Linux auth.log | SSH Accepted password | Successful login for user [account] from 192.168.56.10 | Possible credential compromise |
-| [T+0:06] | Linux auth.log | Sudo usage | sudo command executed by [account] | Post-compromise privilege escalation |
-
-[Replace this example with your actual lab timeline data.]
+| 2026-06-08 17:26:46 | Windows Security Log | 4625 | First failed logon for `labvictim` | Logon Type 2 (interactive) |
+| 2026-06-08 17:26:46–17:26:51 | Windows Security Log | 4625 (x20 more) | 21 total failures in ~10 seconds | Speed/volume indicates a script, not a typo |
+| 2026-06-08 17:26:48 | Wazuh | Rule 60204 | "Multiple Windows Logon Failures" alert fired | Level 10 — this is what drew analyst attention |
+| 2026-06-08 17:26:51 | Windows Security Log | 4624 (absent) | No successful logon followed the failures | Confirms the attack did not succeed |
+| 2026-06-08 17:27:00 | Windows — `net user` | — | Account `labvictim` disabled | Containment |
+| 2026-06-08 17:30:00 | Windows — `net accounts` | — | Lockout threshold set to 5 attempts | Remediation |
 
 ---
 
@@ -55,5 +54,4 @@ A standard investigation timeline includes the following columns:
 
 - Manual: spreadsheet or markdown table
 - Wazuh: filter alerts by time range in the dashboard
-- Splunk: use `| sort _time` and `| timechart` for visual timelines
 - Optional: Timesketch, Plaso (for more complex investigations)

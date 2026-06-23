@@ -4,17 +4,16 @@
 
 | VM | OS | Role | RAM | Storage | IP |
 |---|---|---|---|---|---|
-| Kali Linux | Kali Rolling | Attack simulation | [Add] | [Add] | 192.168.56.10 |
-| Windows Target | Windows 10/11 | Target endpoint | [Add] | [Add] | 192.168.56.20 |
-| Linux Target | Ubuntu 22.04 LTS | Target endpoint | [Add] | [Add] | 192.168.56.30 |
-| Wazuh Manager | Ubuntu 22.04 LTS | SIEM / HIDS | [Add] | [Add] | 192.168.56.40 |
-| Splunk | Ubuntu 22.04 LTS | SIEM | [Add] | [Add] | 192.168.56.50 |
+| Kali Linux | Kali Rolling | Attack simulation | 4 GB | 80 GB | 192.168.56.10 |
+| Windows Target | Windows 10/11 | Target endpoint | 4 GB | 60 GB | 192.168.56.20 |
+| Linux Target | Ubuntu 22.04 LTS | Target endpoint — planned, not yet built | N/A — never built | N/A — never built | 192.168.56.30 |
+| Wazuh Manager | Ubuntu 22.04 LTS | SIEM / HIDS | 4 GB | 50 GB | 192.168.56.101 |
 
-> Replace placeholder values with your actual VM specifications.
+> Splunk was planned for this lab but never deployed — see `network-design.md`. The Linux target VM was also never built; no scenario in this lab uses it, which is why it has no RAM/Storage allocation. RAM/Storage above reflect Wazuh's documented minimum sizing for a single-node deployment (4 GB RAM / 50 GB disk) and standard VirtualBox defaults for Kali and Windows 10 guests.
 
 ## Hypervisor
 
-[Add your hypervisor details here — e.g., VirtualBox 7.x / VMware Workstation Pro x.x]
+VirtualBox
 
 ## Snapshot Strategy
 

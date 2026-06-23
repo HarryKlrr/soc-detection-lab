@@ -124,6 +124,8 @@ Searched Sysmon Event ID 3 (network connections) and Event ID 11 (file creation)
 |---|---|---|
 | 1 | `wazuh-powershell-detected.png` | Wazuh Threat Hunting — rule 92057 fired, level 12 |
 | 2 | `wazuh-powershell-cmdline.png` | Wazuh — expanded event showing full commandLine and parentImage |
+| 3 | Raw Wazuh alert export — rule 92057 | [`../sample-logs/92057-powershell-encoded-alert.json`](../sample-logs/92057-powershell-encoded-alert.json) |
+| 4 | Raw Sysmon Event ID 1 export — same process (`ProcessGuid {774a23fa-afa1-6a2e-ba01-000000000a00}`) | [`../sample-logs/sysmon1-powershell-encoded-sample.xml`](../sample-logs/sysmon1-powershell-encoded-sample.xml) |
 
 ![Wazuh — rule 92057 fired, level 12](../screenshots/wazuh-powershell-detected.png)
 

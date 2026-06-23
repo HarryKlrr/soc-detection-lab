@@ -10,7 +10,7 @@ Disabling or modifying endpoint security tools is a common defence evasion techn
 
 - Simulate disabling Windows Defender on the Windows target VM in the local lab
 - Capture Windows Event Log entries recording the configuration change
-- Configure a detection alert in Wazuh and/or Splunk
+- Configure a detection alert in Wazuh
 - Document the investigation
 
 ---
@@ -20,7 +20,7 @@ Disabling or modifying endpoint security tools is a common defence evasion techn
 | Component | Detail |
 |---|---|
 | Target machine | Windows 10 — 192.168.56.20 (host-only network) |
-| Detection platform | Wazuh, Splunk |
+| Detection platform | Wazuh |
 | Log source | Windows Event ID 5007 — Defender configuration changed |
 | Network | Isolated host-only adapter — no internet routing |
 
@@ -46,20 +46,34 @@ Set-MpPreference -DisableRealtimeMonitoring $false
 
 Expected log sources:
 
-- **Windows Event ID 5007**: Microsoft Antimalware — configuration has changed
-- The event will show the old and new values for the modified Defender setting
+| Log Source | Event ID | Description |
+|---|---|---|
+| Windows Defender Operational Log | 5007 | Microsoft Defender Antivirus Configuration has changed |
 
-[Add actual log entries collected from your lab here.]
+Key fields observed in Event Viewer:
+- Log Name: `Microsoft-Windows-Windows Defender/Operational`
+- Event ID: 5007
+- User: SYSTEM
+- Computer: Windows10-Target
+- Registry key changed: `HKLM\SOFTWARE\Microsoft\Windows Defender\Real-Time Protection\DisableRealtimeMonitoring`
+- Timestamp: 15 June 2026
+
+> Note: Event ID 5007 was visible in Windows Event Viewer. The Windows Defender Operational log channel was not forwarded to Wazuh by default — this required adding a localfile entry to the Wazuh agent ossec.conf.
 
 ---
 
 ## 6. Detection Logic
 
-**Wazuh:**
-[Add tested Wazuh rule here — alert on Event ID 5007 where Defender configuration is disabled — see `detection-rules/wazuh-rules.md`]
+**Windows Event Viewer** confirmed Event ID 5007 generated correctly in `Microsoft-Windows-Windows Defender/Operational`.
 
-**Splunk SPL:**
-[Add SPL query here — search for Event ID 5007 with relevant configuration value change — see `detection-rules/splunk-queries.md`]
+**Wazuh:** The Windows Defender Operational log channel requires a manual addition to the Wazuh agent `ossec.conf`:
+```xml
+<localfile>
+  <location>Microsoft-Windows-Windows Defender/Operational</location>
+  <log_format>eventchannel</log_format>
+</localfile>
+```
+This gap was later fully confirmed and fixed during this lab's investigation — see [`../incident-reports/IR-004-defender-disabled.md`](../incident-reports/IR-004-defender-disabled.md) for the complete root-cause analysis and remediation.
 
 ---
 
@@ -76,11 +90,13 @@ Expected log sources:
 
 ## 8. Evidence / Screenshots
 
-[Insert screenshot of Windows Event ID 5007 here]
+| File | Description |
+|---|---|
+| `defender-disabled-event5007.png` | Event Viewer showing Event ID 5007 — Defender configuration changed |
+| `defender-reenabled.png` | Windows Security showing real-time protection re-enabled after testing |
 
-[Insert screenshot of Wazuh alert triggered by the Defender configuration change here]
-
-[Insert screenshot of Splunk search results here]
+![Event Viewer showing Event ID 5007](../screenshots/defender-disabled-event5007.png)
+![Windows Security showing Defender re-enabled](../screenshots/defender-reenabled.png)
 
 ---
 
@@ -92,8 +108,6 @@ Expected log sources:
 | **Technique** | T1562 — Impair Defenses |
 | **Sub-technique** | T1562.001 — Disable or Modify Tools |
 | **Reference** | https://attack.mitre.org/techniques/T1562/001/ |
-
-[Update once confirmed in your lab.]
 
 ---
 
@@ -109,10 +123,13 @@ Expected log sources:
 
 ## 11. Lessons Learned
 
-[Add your reflections here after completing this scenario.]
+- Event ID 5007 is generated in the Windows Defender Operational log — a separate channel from the main Security log, so it requires explicit configuration in Wazuh to forward
+- The event shows the exact registry key changed — this tells you precisely what protection was turned off
+- In a real incident, Defender being disabled is almost always a precursor to malware execution — the timeline of events immediately after is critical
+- Tamper protection should be enabled in enterprise environments to prevent PowerShell commands from being able to disable Defender at all
 
 ---
 
 ## 12. Status
 
-🔄 In Progress — [Add completion date once fully documented]
+✅ Complete — 15 June 2026

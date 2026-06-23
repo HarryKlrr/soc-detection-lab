@@ -40,9 +40,9 @@ Verify Sysmon is running and config is loaded:
 | 13 | Registry value set |
 | 22 | DNS query |
 
-## Forwarding to Wazuh / Splunk
+## Forwarding to Wazuh
 
-[Add notes on how Sysmon events are forwarded to your SIEM here — e.g., via Wazuh agent or Splunk Universal Forwarder inputs.conf.]
+Sysmon events are collected via the Wazuh agent's Windows eventchannel log monitoring (configured in the agent's `ossec.conf` to read the `Microsoft-Windows-Sysmon/Operational` channel) and forwarded to the Wazuh Manager at 192.168.56.101. Sysmon Event ID 1 (process creation) was the key event type used across multiple scenarios in this lab (see IR-007 for a case where Sysmon caught activity that two other native logging paths missed).
 
 ---
 

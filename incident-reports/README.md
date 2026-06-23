@@ -6,10 +6,15 @@ Formal incident reports for each completed lab scenario. Reports follow a struct
 
 | Report | Scenario | Status |
 |---|---|---|
-| [incident-report-nmap-scan.md](incident-report-nmap-scan.md) | Nmap Port Scan | 🔄 In Progress |
-| [incident-report-failed-logins.md](incident-report-failed-logins.md) | Failed Login / Brute Force | 🔄 In Progress |
-| [incident-report-suspicious-powershell.md](incident-report-suspicious-powershell.md) | Suspicious PowerShell | 🔄 In Progress |
-| [incident-report-new-admin-account.md](incident-report-new-admin-account.md) | New Admin Account Created | 🔄 In Progress |
+| [IR-001-brute-force.md](IR-001-brute-force.md) | Failed Login / Brute Force | ✅ Closed |
+| [IR-002-suspicious-powershell.md](IR-002-suspicious-powershell.md) | Suspicious PowerShell | ✅ Closed |
+| [IR-003-new-admin-account.md](IR-003-new-admin-account.md) | New Admin Account Created | ✅ Closed |
+| [IR-004-defender-disabled.md](IR-004-defender-disabled.md) | Windows Defender Disabled | ✅ Closed |
+| [IR-005-nmap-scan.md](IR-005-nmap-scan.md) | Nmap Port Scan | ✅ Closed |
+| [IR-006-log-clearing.md](IR-006-log-clearing.md) | Security Event Log Cleared | ✅ Closed (corrected 2026-06-21) |
+| [IR-007-scheduled-task.md](IR-007-scheduled-task.md) | Suspicious Scheduled Task Created | ✅ Closed (updated 2026-06-23) |
+| [IR-008-phishing-email.md](IR-008-phishing-email.md) | Phishing Email (American Express Impersonation) | ✅ Closed |
+| [IR-009-malware-hash-triage.md](IR-009-malware-hash-triage.md) | Malware Hash Triage (Gh0stRAT) | ✅ Closed |
 
 ## Report Format
 

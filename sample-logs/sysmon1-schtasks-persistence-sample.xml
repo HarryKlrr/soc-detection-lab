@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Events><Event xmlns='http://schemas.microsoft.com/win/2004/08/events/event'><System><Provider Name='Microsoft-Windows-Sysmon' Guid='{5770385f-c22a-43e0-bf4c-06f5698ffbd9}'/><EventID>1</EventID><Version>5</Version><Level>4</Level><Task>1</Task><Opcode>0</Opcode><Keywords>0x8000000000000000</Keywords><TimeCreated SystemTime='2026-06-17T17:30:14.9491521Z'/><EventRecordID>2169</EventRecordID><Correlation/><Execution ProcessID='2360' ThreadID='2500'/><Channel>Microsoft-Windows-Sysmon/Operational</Channel><Computer>Windows10-Targe</Computer><Security UserID='S-1-5-18'/></System><EventData><Data Name='RuleName'>-</Data><Data Name='UtcTime'>2026-06-17 17:30:14.941</Data><Data Name='ProcessGuid'>{774a23fa-d9a6-6a32-e401-000000000c00}</Data><Data Name='ProcessId'>5192</Data><Data Name='Image'>C:\Windows\System32\schtasks.exe</Data><Data Name='FileVersion'>10.0.19041.906 (WinBuild.160101.0800)</Data><Data Name='Description'>Task Scheduler Configuration Tool</Data><Data Name='Product'>Microsoft® Windows® Operating System</Data><Data Name='Company'>Microsoft Corporation</Data><Data Name='OriginalFileName'>schtasks.exe</Data><Data Name='CommandLine'>schtasks  /create /tn "WindowsUpdateCheck" /tr "powershell.exe -WindowStyle Hidden -Command Write-Host pwned" /sc onlogon /ru SYSTEM</Data><Data Name='CurrentDirectory'>C:\Windows\system32\</Data><Data Name='User'>WINDOWS10-TARGE\harry</Data><Data Name='LogonGuid'>{774a23fa-9810-6a32-37a4-040000000000}</Data><Data Name='LogonId'>0x4a437</Data><Data Name='TerminalSessionId'>1</Data><Data Name='IntegrityLevel'>High</Data><Data Name='Hashes'>MD5=796B784E98008854C27F4B18D287BA30,SHA256=356280CCA63CA5E887FDBE5CB4105A53341FBAC9219EFC51621DF9BA8EE9838B,IMPHASH=ECCE05491F2E8F279F4790BCB1318C05</Data><Data Name='ParentProcessGuid'>{774a23fa-d370-6a32-bc01-000000000c00}</Data><Data Name='ParentProcessId'>5532</Data><Data Name='ParentImage'>C:\Windows\System32\cmd.exe</Data><Data Name='ParentCommandLine'>"C:\Windows\system32\cmd.exe" </Data><Data Name='ParentUser'>WINDOWS10-TARGE\harry</Data></EventData><RenderingInfo Culture='en-US'><Message>Process Create:
+RuleName: -
+UtcTime: 2026-06-17 17:30:14.941
+ProcessGuid: {774a23fa-d9a6-6a32-e401-000000000c00}
+ProcessId: 5192
+Image: C:\Windows\System32\schtasks.exe
+FileVersion: 10.0.19041.906 (WinBuild.160101.0800)
+Description: Task Scheduler Configuration Tool
+Product: Microsoft® Windows® Operating System
+Company: Microsoft Corporation
+OriginalFileName: schtasks.exe
+CommandLine: schtasks  /create /tn "WindowsUpdateCheck" /tr "powershell.exe -WindowStyle Hidden -Command Write-Host pwned" /sc onlogon /ru SYSTEM
+CurrentDirectory: C:\Windows\system32\
+User: WINDOWS10-TARGE\harry
+LogonGuid: {774a23fa-9810-6a32-37a4-040000000000}
+LogonId: 0x4A437
+TerminalSessionId: 1
+IntegrityLevel: High
+Hashes: MD5=796B784E98008854C27F4B18D287BA30,SHA256=356280CCA63CA5E887FDBE5CB4105A53341FBAC9219EFC51621DF9BA8EE9838B,IMPHASH=ECCE05491F2E8F279F4790BCB1318C05
+ParentProcessGuid: {774a23fa-d370-6a32-bc01-000000000c00}
+ParentProcessId: 5532
+ParentImage: C:\Windows\System32\cmd.exe
+ParentCommandLine: "C:\Windows\system32\cmd.exe" 
+ParentUser: WINDOWS10-TARGE\harry</Message><Level>Information</Level><Task>Process Create (rule: ProcessCreate)</Task><Opcode>Info</Opcode><Channel></Channel><Provider></Provider><Keywords></Keywords></RenderingInfo></Event></Events>

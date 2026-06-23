@@ -1,0 +1,92 @@
+{
+  "_index": "wazuh-alerts-4.x-2026.06.22",
+  "_id": "pgqr8J4BGEw2h7KV5igg",
+  "_score": null,
+  "_source": {
+    "input": {
+      "type": "log"
+    },
+    "agent": {
+      "ip": "192.168.56.20",
+      "name": "Windows10-Target",
+      "id": "001"
+    },
+    "manager": {
+      "name": "wazuh-server"
+    },
+    "data": {
+      "win": {
+        "eventdata": {
+          "subjectLogonId": "0x439bd",
+          "clientProcessId": "5708",
+          "subjectUserSid": "S-1-5-21-1703429370-2511098807-3621486283-1000",
+          "taskContent": "&lt;?xml version=\\\"1.0\\\" encoding=\\\"UTF-16\\\"?&gt;  &lt;Task version=\\\"1.2\\\" xmlns=\\\"http://schemas.microsoft.com/windows/2004/02/mit/task\\\"&gt;    &lt;RegistrationInfo&gt;      &lt;Date&gt;2026-06-22T19:50:55&lt;/Date&gt;      &lt;Author&gt;WINDOWS10-TARGE\\\\harry&lt;/Author&gt;      &lt;URI&gt;\\\\WindowsUpdateCheck&lt;/URI&gt;    &lt;/RegistrationInfo&gt;    &lt;Triggers&gt;      &lt;LogonTrigger&gt;        &lt;StartBoundary&gt;2026-06-22T19:50:00&lt;/StartBoundary&gt;        &lt;Enabled&gt;true&lt;/Enabled&gt;      &lt;/LogonTrigger&gt;    &lt;/Triggers&gt;    &lt;Settings&gt;      &lt;MultipleInstancesPolicy&gt;IgnoreNew&lt;/MultipleInstancesPolicy&gt;      &lt;DisallowStartIfOnBatteries&gt;true&lt;/DisallowStartIfOnBatteries&gt;      &lt;StopIfGoingOnBatteries&gt;true&lt;/StopIfGoingOnBatteries&gt;      &lt;AllowHardTerminate&gt;true&lt;/AllowHardTerminate&gt;      &lt;StartWhenAvailable&gt;false&lt;/StartWhenAvailable&gt;      &lt;RunOnlyIfNetworkAvailable&gt;false&lt;/RunOnlyIfNetworkAvailable&gt;      &lt;IdleSettings&gt;        &lt;Duration&gt;PT10M&lt;/Duration&gt;        &lt;WaitTimeout&gt;PT1H&lt;/WaitTimeout&gt;        &lt;StopOnIdleEnd&gt;true&lt;/StopOnIdleEnd&gt;        &lt;RestartOnIdle&gt;false&lt;/RestartOnIdle&gt;      &lt;/IdleSettings&gt;      &lt;AllowStartOnDemand&gt;true&lt;/AllowStartOnDemand&gt;      &lt;Enabled&gt;true&lt;/Enabled&gt;      &lt;Hidden&gt;false&lt;/Hidden&gt;      &lt;RunOnlyIfIdle&gt;false&lt;/RunOnlyIfIdle&gt;      &lt;WakeToRun&gt;false&lt;/WakeToRun&gt;      &lt;ExecutionTimeLimit&gt;PT72H&lt;/ExecutionTimeLimit&gt;      &lt;Priority&gt;7&lt;/Priority&gt;    &lt;/Settings&gt;    &lt;Actions Context=\\\"Author\\\"&gt;      &lt;Exec&gt;        &lt;Command&gt;powershell.exe&lt;/Command&gt;        &lt;Arguments&gt;-WindowStyle Hidden -Command Write-Host pwned&lt;/Arguments&gt;      &lt;/Exec&gt;    &lt;/Actions&gt;    &lt;Principals&gt;      &lt;Principal id=\\\"Author\\\"&gt;        &lt;UserId&gt;S-1-5-18&lt;/UserId&gt;        &lt;RunLevel&gt;LeastPrivilege&lt;/RunLevel&gt;      &lt;/Principal&gt;    &lt;/Principals&gt;  &lt;/Task&gt;",
+          "parentProcessId": "2648",
+          "rpcCallClientLocality": "0",
+          "subjectDomainName": "WINDOWS10-TARGE",
+          "clientProcessStartKey": "4785074604081590",
+          "taskName": "\\\\WindowsUpdateCheck",
+          "fQDN": "Windows10-Targe",
+          "subjectUserName": "harry"
+        },
+        "system": {
+          "eventID": "4698",
+          "keywords": "0x8020000000000000",
+          "providerGuid": "{54849625-5478-4994-a5ba-3e3b0328c30d}",
+          "level": "0",
+          "channel": "Security",
+          "opcode": "0",
+          "message": "\"A scheduled task was created.\r\n\r\nSubject:\r\n\tSecurity ID:\t\tS-1-5-21-1703429370-2511098807-3621486283-1000\r\n\tAccount Name:\t\tharry\r\n\tAccount Domain:\t\tWINDOWS10-TARGE\r\n\tLogon ID:\t\t0x439BD\r\n\r\nTask Information:\r\n\tTask Name: \t\t\\WindowsUpdateCheck\r\n\tTask Content: \t\t<?xml version=\"1.0\" encoding=\"UTF-16\"?>\r\n<Task version=\"1.2\" xmlns=\"http://schemas.microsoft.com/windows/2004/02/mit/task\">\r\n  <RegistrationInfo>\r\n    <Date>2026-06-22T19:50:55</Date>\r\n    <Author>WINDOWS10-TARGE\\harry</Author>\r\n    <URI>\\WindowsUpdateCheck</URI>\r\n  </RegistrationInfo>\r\n  <Triggers>\r\n    <LogonTrigger>\r\n      <StartBoundary>2026-06-22T19:50:00</StartBoundary>\r\n      <Enabled>true</Enabled>\r\n    </LogonTrigger>\r\n  </Triggers>\r\n  <Settings>\r\n    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>\r\n    <DisallowStartIfOnBatteries>true</DisallowStartIfOnBatteries>\r\n    <StopIfGoingOnBatteries>true</StopIfGoingOnBatteries>\r\n    <AllowHardTerminate>true</AllowHardTerminate>\r\n    <StartWhenAvailable>false</StartWhenAvailable>\r\n    <RunOnlyIfNetworkAvailable>false</RunOnlyIfNetworkAvailable>\r\n    <IdleSettings>\r\n      <Duration>PT10M</Duration>\r\n      <WaitTimeout>PT1H</WaitTimeout>\r\n      <StopOnIdleEnd>true</StopOnIdleEnd>\r\n      <RestartOnIdle>false</RestartOnIdle>\r\n    </IdleSettings>\r\n    <AllowStartOnDemand>true</AllowStartOnDemand>\r\n    <Enabled>true</Enabled>\r\n    <Hidden>false</Hidden>\r\n    <RunOnlyIfIdle>false</RunOnlyIfIdle>\r\n    <WakeToRun>false</WakeToRun>\r\n    <ExecutionTimeLimit>PT72H</ExecutionTimeLimit>\r\n    <Priority>7</Priority>\r\n  </Settings>\r\n  <Actions Context=\"Author\">\r\n    <Exec>\r\n      <Command>powershell.exe</Command>\r\n      <Arguments>-WindowStyle Hidden -Command Write-Host pwned</Arguments>\r\n    </Exec>\r\n  </Actions>\r\n  <Principals>\r\n    <Principal id=\"Author\">\r\n      <UserId>S-1-5-18</UserId>\r\n      <RunLevel>LeastPrivilege</RunLevel>\r\n    </Principal>\r\n  </Principals>\r\n</Task>\r\n\r\nOther Information:\r\n\tProcessCreationTime: \t\t4785074604081590\r\n\tClientProcessId: \t\t\t5708\r\n\tParentProcessId: \t\t\t2648\r\n\tFQDN: \t\t0\r\n\t\"",
+          "version": "1",
+          "systemTime": "2026-06-22T18:50:55.0889454Z",
+          "eventRecordID": "29141",
+          "threadID": "756",
+          "computer": "Windows10-Targe",
+          "task": "12804",
+          "processID": "660",
+          "severityValue": "AUDIT_SUCCESS",
+          "providerName": "Microsoft-Windows-Security-Auditing"
+        }
+      }
+    },
+    "rule": {
+      "firedtimes": 1,
+      "mail": false,
+      "level": 4,
+      "description": "A scheduled task was created",
+      "groups": [
+        "windows",
+        "windows_security",
+        "ipsec"
+      ],
+      "mitre": {
+        "technique": [
+          "Scheduled Task/Job"
+        ],
+        "id": [
+          "T1053"
+        ],
+        "tactic": [
+          "Execution",
+          "Persistence",
+          "Privilege Escalation"
+        ]
+      },
+      "id": "60228"
+    },
+    "location": "EventChannel",
+    "decoder": {
+      "name": "windows_eventchannel"
+    },
+    "id": "1782154256.569808",
+    "timestamp": "2026-06-22T18:50:56.121+0000"
+  },
+  "fields": {
+    "timestamp": [
+      "2026-06-22T18:50:56.121Z"
+    ]
+  },
+  "sort": [
+    1782154256121
+  ]
+}

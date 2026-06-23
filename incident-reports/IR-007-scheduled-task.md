@@ -4,7 +4,11 @@
 **Date Created:** 2026-06-17
 **Analyst:** Harry
 **Severity:** High
-**Status:** Closed
+**Status:** Closed (updated 2026-06-23)
+
+---
+
+> **Addendum (2026-06-23):** Following a hardening pass, two of the three detection gaps documented below have been retested. (1) Enabling the "Other Object Access Events" audit subcategory now generates Event ID 4698 correctly, and Wazuh's stock rule 60228 alerts on it with no custom rule needed — this gap is closed. (2) Enabling the Task Scheduler Operational log channel now generates Event ID 106 correctly, confirmed directly in Windows Event Viewer (4 entries, 19–22 June 2026 — see Section 10). This closes the "channel disabled" half of that finding; Wazuh-side ingestion of this specific channel was not separately re-verified in this pass. (3) A custom Wazuh rule (ID 100004) was written to detect this technique via Sysmon, independent of either audit setting — every component was confirmed correct against the live event, but it does not fire, and the root cause is unidentified. This remains an open finding, not a closed gap. Full technical detail: [`../detection-rules/wazuh-rules.md`](../detection-rules/wazuh-rules.md) and [`../investigation-notes/detection-engineering-writeup.md`](../investigation-notes/detection-engineering-writeup.md). Sections 8–10 below have been updated accordingly; the original investigation in Section 6 is left intact.
 
 ---
 
@@ -94,10 +98,10 @@ Searched Threat Hunting for `schtasks` with the date range corrected to actually
 
 ## 8. Remediation Recommendations
 
-- Enable the "Other Object Access Events" audit subcategory: `auditpol /set /subcategory:"Other Object Access Events" /success:enable` — turns on native Event ID 4698 logging
-- Enable the Task Scheduler Operational log channel: `wevtutil sl Microsoft-Windows-TaskScheduler/Operational /e:true`
-- Write a Wazuh rule for `schtasks.exe` creating tasks where the trigger is `/sc onlogon` or `/ru SYSTEM` combined with a PowerShell action in `/tr` — that combination is high-confidence malicious
-- Forward both the Security log (once 4698 is enabled) and the Sysmon channel with proper rule coverage — Sysmon logging something locally isn't the same as Wazuh alerting on it
+- ✅ **Done** — Enabled the "Other Object Access Events" audit subcategory (`auditpol /set /subcategory:"Other Object Access Events" /success:enable`). Event ID 4698 now logs correctly, and Wazuh's stock rule 60228 alerts on it with no custom rule required.
+- ✅ **Done** — Enabled the Task Scheduler Operational log channel (`wevtutil sl Microsoft-Windows-TaskScheduler/Operational /e:true`). Event ID 106 now logs correctly — confirmed in Windows Event Viewer. Wazuh-side ingestion of this channel has not been separately re-verified; confirm a matching localfile entry and rule before relying on this operationally.
+- ⚠️ **Attempted, unresolved** — A custom Wazuh rule (ID 100004) targeting `schtasks.exe` with a `/sc onlogon` or `/ru SYSTEM` trigger combined with a PowerShell action in `/tr` was written and tested. Every component (decoder, event ID, regex) was independently confirmed correct against the live event, but the rule does not fire. Documented as an open finding — see `detection-rules/wazuh-rules.md` for the diagnostic trail.
+- Forward both the Security log (4698, now enabled) and the Sysmon channel with confirmed, firing rule coverage — Sysmon logging something locally isn't the same as Wazuh alerting on it, which is exactly the gap the unresolved custom rule above still leaves open
 
 ---
 
@@ -107,6 +111,7 @@ Searched Threat Hunting for `schtasks` with the date range corrected to actually
 - Sysmon catching something locally doesn't mean a SOC catches it — without a matching rule, the event just sits in a log nobody's watching
 - An innocuous task name and a SYSTEM run-as context is enough to blend in completely when nothing is auditing scheduled task creation in the first place
 - This is the clearest argument yet in this lab for proactively auditing what's actually being logged, rather than assuming Windows' default configuration covers common persistence techniques
+- (Added 2026-06-23) Closing a gap at the OS/logging level — enabling an audit subcategory or a log channel — is necessary but not sufficient on its own. The event has to be paired with confirmed, firing Wazuh-side rule coverage, or it just moves from "never generated" to "generated but still unwatched." That's exactly where the unresolved custom Sysmon rule above currently sits, even with both native logging paths now fixed
 
 ---
 
@@ -117,12 +122,17 @@ Searched Threat Hunting for `schtasks` with the date range corrected to actually
 | 1 | `cmd-schtasks-created-auditpol.png` | Elevated CMD — task created successfully + auditpol showing "Other Object Access Events: No Auditing" |
 | 2 | `sysmon-schtasks-event1.png` | Sysmon Event ID 1 — full command line captured for the scheduled task creation |
 | 3 | `wazuh-schtasks-no-results.png` | Wazuh Threat Hunting — search for `schtasks` (corrected date range) returning no results |
+| 4 | `wazuh-taskscheduler-106-confirmed.png` | (Added 2026-06-23) Windows Event Viewer — Task Scheduler Operational log showing 4 confirmed Event ID 106 entries for `WindowsUpdateCheck` (19, 21, and twice on 22 June 2026) after enabling the channel |
+| 5 | Raw Wazuh alert export — rule 60228, Event 4698 | [`../sample-logs/60228-scheduledtask-4698-alert.json`](../sample-logs/60228-scheduledtask-4698-alert.json) |
+| 6 | Raw Sysmon Event ID 1 export — `schtasks.exe` persistence | [`../sample-logs/sysmon1-schtasks-persistence-sample.xml`](../sample-logs/sysmon1-schtasks-persistence-sample.xml) |
 
 ![Elevated CMD — scheduled task created, auditpol showing no auditing](../screenshots/cmd-schtasks-created-auditpol.png)
 
 ![Sysmon Event ID 1 — scheduled task command line](../screenshots/sysmon-schtasks-event1.png)
 
 ![Wazuh Threat Hunting — no results for schtasks](../screenshots/wazuh-schtasks-no-results.png)
+
+![Windows Event Viewer — Task Scheduler Operational log confirming Event ID 106 now fires](../screenshots/wazuh-taskscheduler-106-confirmed.png)
 
 ---
 

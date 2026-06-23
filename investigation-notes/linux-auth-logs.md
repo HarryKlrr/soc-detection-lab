@@ -11,6 +11,8 @@ Linux systems record authentication activity in log files that are essential for
 
 These logs record: SSH authentication, sudo usage, su commands, PAM events, and cron job execution.
 
+> **Note:** The Linux target VM was planned for this lab (see `../lab-setup/network-design.md`) but never actually built — no scenario in this lab generated real Linux auth log data. The patterns below are reference material for SOC analysis on this log source generally, not confirmed examples from this lab.
+
 ---
 
 ## Key Log Patterns
@@ -24,8 +26,6 @@ These logs record: SSH authentication, sudo usage, su commands, PAM events, and 
 
 **SOC relevance:** Note the source IP and username. Logins from unexpected IPs or outside business hours warrant investigation.
 
-[Add an example entry from your lab here.]
-
 ---
 
 ### Failed SSH Login
@@ -37,8 +37,6 @@ These logs record: SSH authentication, sudo usage, su commands, PAM events, and 
 
 **SOC relevance:** Multiple failed attempts from a single IP in a short window indicate a brute force attempt.
 
-[Add an example entry from your lab here.]
-
 ---
 
 ### Invalid Username Attempt
@@ -48,8 +46,6 @@ These logs record: SSH authentication, sudo usage, su commands, PAM events, and 
 ```
 
 **SOC relevance:** Attempts using common usernames (admin, root, test, ubuntu) suggest automated scanning or credential stuffing.
-
-[Add an example entry from your lab here.]
 
 ---
 
@@ -61,8 +57,6 @@ These logs record: SSH authentication, sudo usage, su commands, PAM events, and 
 
 **SOC relevance:** Review commands run with sudo, especially if performed by non-standard accounts or at unusual times.
 
-[Add an example entry from your lab here.]
-
 ---
 
 ### Account Added to sudoers / Group Change
@@ -72,8 +66,6 @@ These logs record: SSH authentication, sudo usage, su commands, PAM events, and 
 ```
 
 **SOC relevance:** Adding accounts to sudo or wheel groups is analogous to Windows Event ID 4732 — a persistence indicator.
-
-[Add an example entry from your lab here.]
 
 ---
 
@@ -85,17 +77,4 @@ Wazuh includes built-in decoders and rules for `/var/log/auth.log`:
 - **Rule 5712**: Multiple failed SSH authentication attempts (brute force threshold)
 - **Rule 5715**: Successful SSH login
 
-[Add notes on which Wazuh rules fired in your lab here.]
-
----
-
-## Splunk Analysis
-
-```spl
-[Add SPL query here for searching Linux auth.log data in Splunk]
-| comment "Example: index=linux_logs source=/var/log/auth.log "Failed password""
-| comment "rex field=_raw "from (?<src_ip>\d+\.\d+\.\d+\.\d+)""
-| comment "stats count by src_ip | sort -count"
-```
-
-[Add notes on your Splunk index and sourcetype configuration for Linux logs here.]
+None of these rules fired in this lab — the Linux target was never built, so `/var/log/auth.log` was never generated or ingested. These are the relevant stock rules to expect if the Linux target is added in a future phase.

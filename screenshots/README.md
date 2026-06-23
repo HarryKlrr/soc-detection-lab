@@ -11,7 +11,7 @@ Use descriptive, consistent filenames:
 
 Examples:
   nmap-wazuh-alert-triggered.png
-  bruteforce-splunk-results.png
+  bruteforce-wazuh-alert.png
   powershell-sysmon-event1.png
   admin-account-event4720.png
   defender-disabled-event5007.png

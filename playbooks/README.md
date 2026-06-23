@@ -6,9 +6,9 @@ Structured response playbooks for the most common alert types encountered in thi
 
 | Playbook | Alert Type | Status |
 |---|---|---|
-| [brute-force-response-playbook.md](brute-force-response-playbook.md) | Brute force / failed login | 🔄 In Progress |
-| [suspicious-powershell-response-playbook.md](suspicious-powershell-response-playbook.md) | Suspicious PowerShell | 🔄 In Progress |
-| [compromised-account-response-playbook.md](compromised-account-response-playbook.md) | Compromised or unauthorised account | 🔄 In Progress |
+| [brute-force-response-playbook.md](brute-force-response-playbook.md) | Brute force / failed login | ✅ Complete |
+| [suspicious-powershell-response-playbook.md](suspicious-powershell-response-playbook.md) | Suspicious PowerShell | ✅ Complete |
+| [compromised-account-response-playbook.md](compromised-account-response-playbook.md) | Compromised or unauthorised account | ✅ Complete |
 
 ## Purpose
 

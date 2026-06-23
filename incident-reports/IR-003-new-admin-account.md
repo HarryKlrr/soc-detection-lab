@@ -118,6 +118,7 @@ Creating an account and immediately adding it to Administrators is one of the mo
 |---|---|---|
 | 1 | `wazuh-admin-group-changed.png` | Wazuh Threat Hunting — rule 60154, 2 hits at level 12 |
 | 2 | `wazuh-new-account-detail.png` | Wazuh — expanded event showing target account `labadmin` and subject `harry` |
+| 3 | Raw Wazuh alert export — rule 60154 | [`../sample-logs/60154-admin-account-alert.json`](../sample-logs/60154-admin-account-alert.json) |
 
 ![Wazuh — rule 60154, 2 hits at level 12](../screenshots/wazuh-admin-group-changed.png)
 

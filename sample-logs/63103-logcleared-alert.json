@@ -1,0 +1,90 @@
+{
+  "_index": "wazuh-alerts-4.x-2026.06.21",
+  "_id": "aZFL654BEdniwfu4F4Fg",
+  "_score": null,
+  "_source": {
+    "input": {
+      "type": "log"
+    },
+    "agent": {
+      "ip": "192.168.56.20",
+      "name": "Windows10-Target",
+      "id": "001"
+    },
+    "manager": {
+      "name": "wazuh-server"
+    },
+    "data": {
+      "win": {
+        "system": {
+          "eventID": "1102",
+          "keywords": "0x4020000000000000",
+          "providerGuid": "{fc65ddd8-d6ef-4962-83d5-6e5cfe9ce148}",
+          "level": "4",
+          "channel": "Security",
+          "opcode": "0",
+          "message": "\"The audit log was cleared.\r\nSubject:\r\n\tSecurity ID:\tS-1-5-21-1703429370-2511098807-3621486283-1000\r\n\tAccount Name:\tharry\r\n\tDomain Name:\tWINDOWS10-TARGE\r\n\tLogon ID:\t0x3B99A\"",
+          "version": "0",
+          "systemTime": "2026-06-21T17:46:11.5508314Z",
+          "eventRecordID": "26966",
+          "threadID": "5420",
+          "computer": "Windows10-Targe",
+          "task": "104",
+          "processID": "372",
+          "severityValue": "INFORMATION",
+          "providerName": "Microsoft-Windows-Eventlog"
+        },
+        "logFileCleared": {
+          "subjectLogonId": "0x3b99a",
+          "subjectUserSid": "S-1-5-21-1703429370-2511098807-3621486283-1000",
+          "subjectDomainName": "WINDOWS10-TARGE",
+          "subjectUserName": "harry"
+        }
+      }
+    },
+    "rule": {
+      "firedtimes": 1,
+      "mail": false,
+      "level": 5,
+      "description": "The audit log was cleared",
+      "groups": [
+        "windows",
+        "windows_logs",
+        "log_clearing_auditlog"
+      ],
+      "mitre": {
+        "technique": [
+          "Indicator Removal"
+        ],
+        "id": [
+          "T1070"
+        ],
+        "tactic": [
+          "Defense Evasion"
+        ]
+      },
+      "id": "63103",
+      "gpg13": [
+        "10.1"
+      ],
+      "gdpr": [
+        "II_5.1.f",
+        "IV_30.1.g"
+      ]
+    },
+    "location": "EventChannel",
+    "decoder": {
+      "name": "windows_eventchannel"
+    },
+    "id": "1782064023.828564",
+    "timestamp": "2026-06-21T17:47:03.184+0000"
+  },
+  "fields": {
+    "timestamp": [
+      "2026-06-21T17:47:03.184Z"
+    ]
+  },
+  "sort": [
+    1782064023184
+  ]
+}

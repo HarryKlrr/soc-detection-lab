@@ -10,7 +10,7 @@ Attackers frequently abuse PowerShell to execute payloads, download files, and p
 
 - Simulate suspicious PowerShell activity on the Windows target VM in the local lab
 - Capture the relevant Sysmon and Windows Event Log entries
-- Create detection logic in Wazuh and/or Splunk to identify the activity
+- Create detection logic in Wazuh to identify the activity
 - Document the investigation
 
 ---
@@ -20,7 +20,7 @@ Attackers frequently abuse PowerShell to execute payloads, download files, and p
 | Component | Detail |
 |---|---|
 | Target machine | Windows 10 — 192.168.56.20 (host-only network) |
-| Detection platform | Wazuh (Sysmon integration), Splunk |
+| Detection platform | Wazuh (Sysmon integration) |
 | Log source | Sysmon Event ID 1 (process creation), Windows Event ID 4688 |
 | Network | Isolated host-only adapter — no internet routing |
 
@@ -28,45 +28,50 @@ Attackers frequently abuse PowerShell to execute payloads, download files, and p
 
 ## 4. Simulated Activity
 
-The following commands were run **only on the local Windows lab VM** to simulate suspicious PowerShell usage:
+The following command was run on the local Windows 10 VM to simulate suspicious PowerShell usage:
 
 ```powershell
-# Example: Encoded command (simulates obfuscation)
-powershell.exe -EncodedCommand [Base64EncodedString]
-
-# Example: Execution policy bypass (no malicious payload — for detection testing only)
-powershell.exe -ExecutionPolicy Bypass -NoProfile -Command "Get-Process"
-
-# Example: Downloading a file (to a local test URL only — no external connections)
-powershell.exe -Command "Invoke-WebRequest -Uri http://192.168.56.10/test.txt -OutFile C:\Temp\test.txt"
+powershell.exe -ExecutionPolicy Bypass -NoProfile -WindowStyle Hidden -EncodedCommand dwBoAG8AYQBtAGkA
 ```
 
-> All commands were executed locally within the isolated lab. No external URLs were contacted.
+Flags used and why they are suspicious:
+- `-ExecutionPolicy Bypass` — overrides the policy blocking unsigned scripts
+- `-NoProfile` — skips loading the user profile (stealthy behaviour)
+- `-WindowStyle Hidden` — spawns the process with no visible window
+- `-EncodedCommand` — runs a Base64-encoded command to obscure intent
+
+The Base64 string `dwBoAG8AYQBtAGkA` decodes to `whoami` — harmless for lab purposes, but the flags match real-world malware loader patterns.
+
+> All activity performed on the local Windows 10 VM (192.168.56.20) on an isolated host-only network. No external systems were contacted.
 
 ---
 
 ## 5. Logs Generated
 
-Expected log sources:
+| Log Source | Event | Detail |
+|---|---|---|
+| Sysmon Event ID 1 | Process creation | Full command line captured including all flags and encoded string |
+| Wazuh | Rule 92057 fired — level 12 | "Powershell.exe spawned a powershell process which executed a base64 encoded command" |
 
-- **Sysmon Event ID 1**: Process creation — captures full command line including encoded parameters
-- **Windows Event ID 4688**: Process creation (if audit policy is enabled)
-- **Wazuh alert**: Rule match on suspicious PowerShell flags (EncodedCommand, Bypass, etc.)
-
-[Add actual log entries collected from your lab here.]
+Key fields observed in Wazuh:
+- `data.win.eventdata.commandLine` — full command including `-WindowStyle Hidden` and `-EncodedCommand` flags
+- `data.win.eventdata.parentImage` — `powershell.exe` (PowerShell spawned by PowerShell)
 
 ---
 
 ## 6. Detection Logic
 
-**Wazuh:**
-[Add tested Wazuh rule here — detect PowerShell with EncodedCommand, Bypass, or hidden window flags — see `detection-rules/wazuh-rules.md`]
+**Wazuh built-in rule fired automatically — no custom rule required.**
 
-**Splunk SPL:**
-[Add SPL query here — search Sysmon Event ID 1 for PowerShell with suspicious arguments — see `detection-rules/splunk-queries.md`]
+- Rule ID: 92057
+- Rule level: 12 (High)
+- Description: Powershell.exe spawned a powershell process which executed a base64 encoded command
+- Detection field: `data.win.eventdata.commandLine` containing `-EncodedCommand`
 
-**Sigma:**
-[Add Sigma rule reference here — see `detection-rules/sigma-rules.md`]
+**Wazuh Threat Hunting query used:**
+```
+data.win.eventdata.commandLine: *EncodedCommand*
+```
 
 ---
 
@@ -84,11 +89,13 @@ Expected log sources:
 
 ## 8. Evidence / Screenshots
 
-[Insert screenshot of Sysmon Event ID 1 showing the PowerShell process creation here]
+| File | Description |
+|---|---|
+| `wazuh-powershell-detected.png` | Wazuh Threat Hunting showing rule 92057 fired at level 12 |
+| `wazuh-powershell-cmdline.png` | Expanded event showing full commandLine and parentImage fields |
 
-[Insert screenshot of Wazuh alert triggered by the PowerShell activity here]
-
-[Insert screenshot of Splunk search results here]
+![Wazuh alert showing suspicious PowerShell detected](../screenshots/wazuh-powershell-detected.png)
+![Expanded event showing full command line](../screenshots/wazuh-powershell-cmdline.png)
 
 ---
 
@@ -100,8 +107,6 @@ Expected log sources:
 | **Technique** | T1059 — Command and Scripting Interpreter |
 | **Sub-technique** | T1059.001 — PowerShell |
 | **Reference** | https://attack.mitre.org/techniques/T1059/001/ |
-
-[Update once confirmed in your lab.]
 
 ---
 
@@ -117,10 +122,13 @@ Expected log sources:
 
 ## 11. Lessons Learned
 
-[Add your reflections here after completing this scenario.]
+- Wazuh has built-in rules for common PowerShell abuse patterns — rule 92057 fired at level 12 with no custom configuration needed
+- The key investigation fields are `commandLine` (what ran) and `parentImage` (what launched it)
+- `-EncodedCommand` is the biggest red flag — legitimate software almost never uses it; in a real incident the first step is decoding the Base64 to see what the hidden command actually does
+- Sysmon must be configured in the Wazuh agent `ossec.conf` to forward events — it doesn't happen automatically after Sysmon is installed
 
 ---
 
 ## 12. Status
 
-🔄 In Progress — [Add completion date once fully documented]
+✅ Complete — 14 June 2026

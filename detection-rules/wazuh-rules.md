@@ -8,72 +8,45 @@ Custom rules developed for this lab. All rules are added to the Wazuh Manager in
 
 ## Rule: Nmap Port Scan Detection
 
-```xml
-<!-- [Add tested Wazuh rule here] -->
-<!-- Expected: Rule to detect multiple connection refused/reset events from a single source in a short window -->
-<!-- Relevant log source: Wazuh network/firewall decoder -->
-<!-- Example fields to match: srcip, multiple attempts, short time window -->
-```
-
-[Insert screenshot of triggered Wazuh alert for Nmap scan here]
+**Status:** ❌ Not applicable. Wazuh is a HIDS and never sees an external port scan — it doesn't generate a Windows Event Log entry, so there's nothing for any Wazuh rule (stock or custom) to match. Closing this would require a NIDS (e.g. Suricata) or Windows Firewall connection logging forwarded to Wazuh, neither of which is deployed in this lab. See [`../attack-scenarios/nmap-scan-detection.md`](../attack-scenarios/nmap-scan-detection.md) and [`../incident-reports/IR-005-nmap-scan.md`](../incident-reports/IR-005-nmap-scan.md).
 
 ---
 
 ## Rule: Brute Force — Failed Logins (Windows)
 
-```xml
-<!-- [Add tested Wazuh rule here] -->
-<!-- Expected: Threshold rule matching Windows Event ID 4625 — fire after N failures within time window -->
-<!-- Example: frequency rule, count > 5 in 60 seconds, same source -->
-```
+**Status:** ✅ Covered by stock rules — confirmed firing on live data, no custom rule required.
 
-[Insert screenshot of triggered Wazuh alert for failed logins here]
+Wazuh's built-in `authentication_failed` rule group fired automatically: Rule 60122 (level 5) and Rule 60204 (level 10 — "Multiple Windows Logon Failures") both matched the burst of 21 x Event ID 4625 against `labvictim`. Full writeup: [`../incident-reports/IR-001-brute-force.md`](../incident-reports/IR-001-brute-force.md).
 
 ---
 
 ## Rule: Brute Force — Failed SSH Logins (Linux)
 
-```xml
-<!-- [Add tested Wazuh rule here] -->
-<!-- Expected: Rule matching sshd "Failed password" messages from /var/log/auth.log -->
-<!-- Wazuh built-in rules 5710–5712 may already cover this — document which built-in fired or add a custom threshold -->
-```
-
-[Insert screenshot of triggered Wazuh alert for failed SSH logins here]
+**Status:** N/A — the Linux target VM was planned for this lab (see `../lab-setup/network-design.md`) but never built, so no SSH auth log data exists to test against. Wazuh's stock rules 5710–5712 are the relevant ones to test if a Linux target is added in a future phase — see [`../investigation-notes/linux-auth-logs.md`](../investigation-notes/linux-auth-logs.md).
 
 ---
 
 ## Rule: Suspicious PowerShell Execution
 
-```xml
-<!-- [Add tested Wazuh rule here] -->
-<!-- Expected: Rule matching Sysmon Event ID 1 where CommandLine contains -EncodedCommand, -Bypass, or -Hidden -->
-<!-- Requires Sysmon integration with Wazuh agent -->
-```
+**Status:** ✅ Covered by stock rule — confirmed firing on live data, no custom rule required.
 
-[Insert screenshot of triggered Wazuh alert for suspicious PowerShell here]
+Wazuh's built-in Rule 92057 (level 12) fired automatically on the Sysmon Event ID 1 `commandLine` containing `-EncodedCommand`. Full writeup: [`../incident-reports/IR-002-suspicious-powershell.md`](../incident-reports/IR-002-suspicious-powershell.md).
 
 ---
 
 ## Rule: New Local Administrator Account Created
 
-```xml
-<!-- [Add tested Wazuh rule here] -->
-<!-- Expected: Rule matching Windows Event ID 4720 (account created) and/or 4732 (added to Administrators group) -->
-```
+**Status:** ✅ Covered by stock rule — confirmed firing on live data, no custom rule required.
 
-[Insert screenshot of triggered Wazuh alert for account creation here]
+Wazuh's built-in Rule 60154 (level 12 — "Administrators Group Changed") fired automatically on Event ID 4732. Full writeup: [`../incident-reports/IR-003-new-admin-account.md`](../incident-reports/IR-003-new-admin-account.md).
 
 ---
 
 ## Rule: Windows Defender Configuration Changed
 
-```xml
-<!-- [Add tested Wazuh rule here] -->
-<!-- Expected: Rule matching Windows Event ID 5007 where new value indicates a protection feature is disabled -->
-```
+**Status:** ✅ Covered by stock rule — confirmed firing on live data, no custom rule required.
 
-[Insert screenshot of triggered Wazuh alert for Defender change here]
+The Windows Defender Operational log channel wasn't reaching Wazuh at all — Event ID 5007 only ever showed up in local Event Viewer. This was fixed by adding the channel to the agent's `ossec.conf` (see [`../incident-reports/IR-004-defender-disabled.md`](../incident-reports/IR-004-defender-disabled.md)). Retested 2026-06-23: re-disabled real-time protection, confirmed Event ID 5007 logged locally, then checked `alerts.json` directly on the manager (`sudo grep '"eventID":"5007"' /var/ossec/logs/alerts/alerts.json`). Wazuh's stock ruleset already includes Rule **62154** ("Windows Defender: Antimalware platform feature configuration changed," level 5), and it fired correctly — no custom rule needed. This closes the gap.
 
 ---
 

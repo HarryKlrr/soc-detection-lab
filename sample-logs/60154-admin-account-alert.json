@@ -1,0 +1,116 @@
+{
+  "_index": "wazuh-alerts-4.x-2026.06.15",
+  "_id": "277Xy54BTqKlIAVfV54L",
+  "_score": null,
+  "_source": {
+    "input": {
+      "type": "log"
+    },
+    "agent": {
+      "ip": "192.168.56.20",
+      "name": "Windows10-Target",
+      "id": "001"
+    },
+    "manager": {
+      "name": "wazuh-server"
+    },
+    "data": {
+      "win": {
+        "eventdata": {
+          "subjectLogonId": "0x5ac58",
+          "targetUserName": "Administrators",
+          "memberSid": "S-1-5-21-1703429370-2511098807-3621486283-1003",
+          "subjectUserSid": "S-1-5-21-1703429370-2511098807-3621486283-1000",
+          "subjectDomainName": "WINDOWS10-TARGE",
+          "targetDomainName": "Builtin",
+          "targetSid": "S-1-5-32-544",
+          "subjectUserName": "harry"
+        },
+        "system": {
+          "eventID": "4732",
+          "keywords": "0x8020000000000000",
+          "providerGuid": "{54849625-5478-4994-a5ba-3e3b0328c30d}",
+          "level": "0",
+          "channel": "Security",
+          "opcode": "0",
+          "message": "\"A member was added to a security-enabled local group.\r\n\r\nSubject:\r\n\tSecurity ID:\t\tS-1-5-21-1703429370-2511098807-3621486283-1000\r\n\tAccount Name:\t\tharry\r\n\tAccount Domain:\t\tWINDOWS10-TARGE\r\n\tLogon ID:\t\t0x5AC58\r\n\r\nMember:\r\n\tSecurity ID:\t\tS-1-5-21-1703429370-2511098807-3621486283-1003\r\n\tAccount Name:\t\t-\r\n\r\nGroup:\r\n\tSecurity ID:\t\tS-1-5-32-544\r\n\tGroup Name:\t\tAdministrators\r\n\tGroup Domain:\t\tBuiltin\r\n\r\nAdditional Information:\r\n\tPrivileges:\t\t-\"",
+          "version": "0",
+          "systemTime": "2026-06-15T15:12:33.7311050Z",
+          "eventRecordID": "19029",
+          "threadID": "5212",
+          "computer": "Windows10-Targe",
+          "task": "13826",
+          "processID": "664",
+          "severityValue": "AUDIT_SUCCESS",
+          "providerName": "Microsoft-Windows-Security-Auditing"
+        }
+      }
+    },
+    "rule": {
+      "mail": true,
+      "level": 12,
+      "pci_dss": [
+        "8.1.2",
+        "10.2.5"
+      ],
+      "hipaa": [
+        "164.312.a.2.I",
+        "164.312.a.2.II",
+        "164.312.b"
+      ],
+      "tsc": [
+        "CC6.8",
+        "CC7.2",
+        "CC7.3"
+      ],
+      "description": "Administrators Group Changed",
+      "groups": [
+        "windows",
+        "windows_security",
+        "group_changed",
+        "win_group_changed"
+      ],
+      "nist_800_53": [
+        "AC.2",
+        "IA.4",
+        "AU.14",
+        "AC.7"
+      ],
+      "gdpr": [
+        "IV_35.7.d",
+        "IV_32.2"
+      ],
+      "firedtimes": 2,
+      "mitre": {
+        "technique": [
+          "Domain Policy Modification"
+        ],
+        "id": [
+          "T1484"
+        ],
+        "tactic": [
+          "Defense Evasion",
+          "Privilege Escalation"
+        ]
+      },
+      "id": "60154",
+      "gpg13": [
+        "7.10"
+      ]
+    },
+    "location": "EventChannel",
+    "decoder": {
+      "name": "windows_eventchannel"
+    },
+    "id": "1781536345.377446",
+    "timestamp": "2026-06-15T15:12:25.383+0000"
+  },
+  "fields": {
+    "timestamp": [
+      "2026-06-15T15:12:25.383Z"
+    ]
+  },
+  "sort": [
+    1781536345383
+  ]
+}

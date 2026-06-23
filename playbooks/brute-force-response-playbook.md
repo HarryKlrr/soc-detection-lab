@@ -1,9 +1,9 @@
 # Playbook — Brute Force / Failed Login Attempt
 
 **Version:** 1.0
-**Last Updated:** [Add date]
-**Author:** John
-**Applies To:** [Add: Windows / Linux / Both]
+**Last Updated:** 23 June 2026
+**Author:** Harry (GitHub: [harryklrr](https://github.com/harryklrr))
+**Applies To:** Windows (Linux steps included for completeness — no Linux host was built in this lab)
 
 ---
 
@@ -15,7 +15,7 @@ This playbook provides a structured process for investigating and responding to 
 
 ## 2. Alert Trigger
 
-**Alert Name / Rule:** [Add the Wazuh rule name or Splunk alert name that triggers this playbook]
+**Alert Name / Rule:** Wazuh Rule 60204 — "Multiple Windows Logon Failures" (level 10), built-in `authentication_failed` rule group
 
 **Trigger Condition:** Threshold exceeded: N or more failed authentication events (Event ID 4625 / SSH auth.log failures) from a single source within a defined time window.
 
@@ -69,7 +69,7 @@ Once the immediate threat is contained:
 
 Collect and preserve the following evidence before taking any destructive actions:
 
-- [ ] Export relevant SIEM alerts (Wazuh / Splunk)
+- [ ] Export relevant SIEM alerts (Wazuh)
 - [ ] Export relevant Windows Event Logs or Linux auth logs
 - [ ] Screenshot all key alert and investigation views
 - [ ] Document the timeline of events
@@ -98,9 +98,9 @@ Escalate to a senior analyst or incident response team if:
 
 ## 9. References
 
-- Relevant MITRE ATT&CK page: [Add link]
-- Relevant detection rule: [Add link to `detection-rules/`]
-- Related incident report: [Add link to `incident-reports/`]
+- Relevant MITRE ATT&CK page: https://attack.mitre.org/techniques/T1110/001/
+- Relevant detection rule: [`../detection-rules/wazuh-rules.md`](../detection-rules/wazuh-rules.md) — Rule 60204
+- Related incident report: [`../incident-reports/IR-001-brute-force.md`](../incident-reports/IR-001-brute-force.md)
 
 ---
 

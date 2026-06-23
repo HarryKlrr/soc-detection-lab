@@ -117,6 +117,7 @@ Opened Event Viewer → Windows Logs → Security → filtered for 4625. Same 21
 | 4 | `wazuh-4625-event-detail.png` | Wazuh — expanded event detail |
 | 5 | `windows-event-viewer-4625.png` | Windows Event Viewer — Security log |
 | 6 | `account-lockout-policy.png` | Windows CMD — net accounts output |
+| 7 | Raw Wazuh alert export — rule 60204 | [`../sample-logs/60204-bruteforce-alert.json`](../sample-logs/60204-bruteforce-alert.json) |
 
 ![labvictim account created](../screenshots/labvictim-account-created.png)
 

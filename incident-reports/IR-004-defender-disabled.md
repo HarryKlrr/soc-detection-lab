@@ -4,7 +4,11 @@
 **Date Created:** 2026-06-15
 **Analyst:** Harry
 **Severity:** High
-**Status:** Closed
+**Status:** Closed (rule coverage retested 2026-06-23)
+
+---
+
+> **Addendum (2026-06-23):** At the time this report was originally closed, the `ossec.conf` forwarding fix below had not been retested to confirm a Wazuh rule actually fires on Event ID 5007 once forwarded — that was tracked as an open item in `detection-rules/wazuh-rules.md`. Retested today: real-time protection was disabled again, Event ID 5007 logged locally as expected, and `sudo grep '"eventID":"5007"' /var/ossec/logs/alerts/alerts.json` on the manager returned a match against Wazuh's stock **Rule 62154** ("Windows Defender: Antimalware platform feature configuration changed," level 5). No custom rule was needed. This closes the rule-coverage gap; see Section 10 for the alert and `detection-rules/wazuh-rules.md` for the updated status.
 
 ---
 
@@ -115,8 +119,12 @@ Wazuh had no alert for this because the Defender Operational channel wasn't in `
 |---|---|---|
 | 1 | `defender-disabled-event5007.png` | Windows Event Viewer — Event ID 5007 showing configuration change |
 | 2 | `defender-reenabled.png` | Windows Security app — real-time protection confirmed active |
+| 3 | Raw Event Viewer export — Event ID 5007 | [`../sample-logs/5007-defender-disabled-sample.xml`](../sample-logs/5007-defender-disabled-sample.xml) |
+| 4 | `wazuh-defender-5007-retest.png` | (Added 2026-06-23) `alerts.json` grep on the manager confirming stock Rule 62154 fired on Event ID 5007 |
 
 ![Event Viewer — Event ID 5007 Defender configuration changed](../screenshots/defender-disabled-event5007.png)
+
+![Wazuh manager — alerts.json confirming Rule 62154 fired on Event ID 5007](../screenshots/wazuh-defender-5007-retest.png)
 
 ![Windows Security — real-time protection confirmed active](../screenshots/defender-reenabled.png)
 
