@@ -22,6 +22,3 @@ Snapshots are taken at the following points:
 - Post-tool installation (before any attack simulation)
 - After each scenario (for rollback)
 
----
-
-*[Add screenshots of your VM manager interface here — see `screenshots/`]*

@@ -26,8 +26,4 @@ Host-Only Network: 192.168.56.0/24
 
 ## Firewall Notes
 
-[Add notes on any host firewall rules or VM firewall configurations here.]
-
----
-
-*[Add a screenshot of your network adapter settings here — see `screenshots/`]*
+Host-only adapters have no external attack surface, so firewall rules here are minimal. `Windows10-Target` was left on the default Windows Defender Firewall configuration — no inbound rule was needed since the Wazuh agent always initiates outbound traffic to the manager (TCP/UDP 1514 for events, TCP 1515 for enrollment). On the Wazuh Manager, `ufw` was left disabled for this lab since the host-only network has no untrusted members; in a real deployment it would need explicit allow rules for 1514/1515 (agent traffic) and 443 (dashboard).

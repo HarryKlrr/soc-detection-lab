@@ -17,7 +17,7 @@ This playbook provides a structured process for investigating and responding to 
 
 **Alert Name / Rule:** Wazuh Rule 60204 — "Multiple Windows Logon Failures" (level 10), built-in `authentication_failed` rule group
 
-**Trigger Condition:** Threshold exceeded: N or more failed authentication events (Event ID 4625 / SSH auth.log failures) from a single source within a defined time window.
+**Trigger Condition:** Threshold exceeded: N or more failed authentication events (Event ID 4625) from a single source within a defined time window.
 
 **Default Severity:** Medium (escalate to High if successful logon follows)
 
@@ -70,7 +70,7 @@ Once the immediate threat is contained:
 Collect and preserve the following evidence before taking any destructive actions:
 
 - [ ] Export relevant SIEM alerts (Wazuh)
-- [ ] Export relevant Windows Event Logs or Linux auth logs
+- [ ] Export relevant Windows Event Logs
 - [ ] Screenshot all key alert and investigation views
 - [ ] Document the timeline of events
 

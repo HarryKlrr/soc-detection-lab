@@ -70,7 +70,7 @@ Once the immediate threat is contained:
 Collect and preserve the following evidence before taking any destructive actions:
 
 - [ ] Export relevant SIEM alerts (Wazuh)
-- [ ] Export relevant Windows Event Logs or Linux auth logs
+- [ ] Export relevant Windows Event Logs
 - [ ] Screenshot all key alert and investigation views
 - [ ] Document the timeline of events
 
